@@ -18,42 +18,42 @@ export default function ShopPage() {
     : products.filter((p) => p.category === activeCategory);
 
   return (
-    <main className="pt-24 pb-16">
+    <main className="pt-28 pb-16">
       <div className="container">
-        <motion.div {...fadeInUp} className="mb-12">
-          <p className="technical-label mb-2">Collection</p>
-          <h1 className="font-mono text-3xl md:text-4xl font-bold uppercase tracking-tight">Shop All</h1>
+        <motion.div {...fadeInUp} className="text-center mb-14">
+          <p className="technical-label mb-3">Browse</p>
+          <h1 className="font-serif text-3xl md:text-5xl font-medium italic">Our Collection</h1>
         </motion.div>
 
         {/* Category Filter */}
-        <motion.div {...fadeInUp} className="flex gap-3 mb-10 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
+        <motion.div {...fadeInUp} className="flex justify-center gap-6 mb-14">
           <button
             onClick={() => setActiveCategory("all")}
-            className={`px-4 py-2 font-mono text-xs uppercase tracking-widest rounded-sm transition-colors whitespace-nowrap ${
+            className={`text-[11px] uppercase tracking-[0.2em] pb-1 transition-colors ${
               activeCategory === "all"
-                ? "bg-foreground text-background"
-                : "bg-secondary text-muted-foreground hover:text-foreground"
+                ? "text-foreground border-b border-foreground"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            All ({products.length})
+            All
           </button>
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 font-mono text-xs uppercase tracking-widest rounded-sm transition-colors whitespace-nowrap ${
+              className={`text-[11px] uppercase tracking-[0.2em] pb-1 transition-colors ${
                 activeCategory === cat.id
-                  ? "bg-foreground text-background"
-                  : "bg-secondary text-muted-foreground hover:text-foreground"
+                  ? "text-foreground border-b border-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {cat.name} ({cat.count})
+              {cat.name}
             </button>
           ))}
         </motion.div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {filtered.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

@@ -9,16 +9,16 @@ const fadeInUp = {
 
 export default function AboutPage() {
   return (
-    <main className="pt-24 pb-16">
+    <main className="pt-28 pb-16">
       <div className="container max-w-3xl">
-        <motion.div {...fadeInUp}>
-          <p className="technical-label mb-2">Our Story</p>
-          <h1 className="font-mono text-3xl md:text-5xl font-bold uppercase tracking-tight leading-[0.95]">
-            Built for the<br />Streets of Accra.
+        <motion.div {...fadeInUp} className="text-center">
+          <p className="technical-label mb-3">Our Story</p>
+          <h1 className="font-serif text-3xl md:text-5xl font-medium italic leading-tight">
+            Where Modern Elegance<br />Meets Heritage Craft.
           </h1>
         </motion.div>
 
-        <motion.div {...fadeInUp} className="mt-12 space-y-6 text-muted-foreground leading-relaxed">
+        <motion.div {...fadeInUp} className="mt-14 space-y-6 text-muted-foreground leading-relaxed">
           <p>
             Tees & Hoodies was born in the creative heart of Accra — Osu. What started as a passion project between friends who couldn't find heavyweight streetwear that matched their style has grown into a movement.
           </p>
@@ -36,16 +36,16 @@ export default function AboutPage() {
             { label: "Based in", value: "Accra, Ghana" },
             { label: "Fabric Weight", value: "450–500GSM" },
           ].map((stat) => (
-            <div key={stat.label} className="p-6 rounded-sm grid-line">
+            <div key={stat.label} className="p-6 border border-border text-center">
               <p className="technical-label mb-2">{stat.label}</p>
-              <p className="font-mono text-xl font-bold uppercase tracking-tight">{stat.value}</p>
+              <p className="font-serif text-xl font-medium italic">{stat.value}</p>
             </div>
           ))}
         </motion.div>
 
-        <motion.div {...fadeInUp} className="mt-16 p-6 bg-foreground text-background rounded-sm">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-background/40 mb-4">Our Mission</p>
-          <p className="font-mono text-lg md:text-xl font-bold uppercase tracking-tight leading-relaxed">
+        <motion.div {...fadeInUp} className="mt-16 p-8 bg-foreground text-primary-foreground text-center">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-primary-foreground/40 mb-4">Our Mission</p>
+          <p className="font-serif text-lg md:text-2xl font-medium italic leading-relaxed">
             "To prove that world-class streetwear can be born anywhere — starting with Accra."
           </p>
         </motion.div>

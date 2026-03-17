@@ -7,14 +7,14 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: "1.5rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1280px",
       },
     },
     extend: {
       fontFamily: {
-        mono: ['"Geist Mono"', '"SF Mono"', '"Fira Code"', 'monospace'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         sans: ['"Instrument Sans"', 'sans-serif'],
       },
       colors: {

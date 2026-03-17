@@ -21,17 +21,16 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-background z-50 flex flex-col"
-            style={{ boxShadow: "-4px 0 20px rgba(0,0,0,0.08)" }}
+            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-background z-50 flex flex-col border-l border-border"
           >
-            <div className="flex items-center justify-between p-6" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.08)" }}>
+            <div className="flex items-center justify-between p-6 border-b border-border">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
-                <span className="font-mono text-sm font-bold uppercase tracking-tight">
+                <span className="text-sm font-medium uppercase tracking-[0.1em]">
                   Cart ({totalItems})
                 </span>
               </div>
-              <button onClick={() => setIsCartOpen(false)} className="p-1 transition-transform active:scale-90">
+              <button onClick={() => setIsCartOpen(false)} className="p-1 transition-opacity hover:opacity-60">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -40,7 +39,7 @@ export default function CartDrawer() {
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
                   <ShoppingBag className="w-12 h-12 mb-4" strokeWidth={1} />
-                  <p className="font-mono text-sm uppercase tracking-widest">Cart is empty</p>
+                  <p className="text-sm uppercase tracking-[0.15em]">Cart is empty</p>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -56,33 +55,31 @@ export default function CartDrawer() {
                         <img
                           src={item.product.image}
                           alt={item.product.name}
-                          className="w-20 h-24 object-cover rounded-sm bg-secondary"
+                          className="w-20 h-20 object-cover bg-secondary"
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="font-mono text-xs font-bold uppercase tracking-tight truncate">
-                            {item.product.name}
-                          </p>
-                          <p className="technical-label mt-1">
+                          <p className="text-sm font-medium truncate">{item.product.name}</p>
+                          <p className="text-[11px] text-muted-foreground mt-1">
                             Size: {item.size} · {item.color}
                           </p>
-                          <p className="price-display text-sm mt-1">GH₵ {item.product.price}</p>
+                          <p className="text-sm font-semibold mt-1">GH₵{item.product.price}</p>
                           <div className="flex items-center gap-3 mt-2">
                             <button
                               onClick={() => updateQuantity(item.product.id, item.size, item.color, item.quantity - 1)}
-                              className="w-7 h-7 flex items-center justify-center border rounded-sm transition-colors hover:bg-secondary"
+                              className="w-7 h-7 flex items-center justify-center border border-border transition-colors hover:border-foreground"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="font-mono text-xs tabular-nums">{item.quantity}</span>
+                            <span className="text-xs tabular-nums">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.product.id, item.size, item.color, item.quantity + 1)}
-                              className="w-7 h-7 flex items-center justify-center border rounded-sm transition-colors hover:bg-secondary"
+                              className="w-7 h-7 flex items-center justify-center border border-border transition-colors hover:border-foreground"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
                             <button
                               onClick={() => removeItem(item.product.id, item.size, item.color)}
-                              className="ml-auto technical-label hover:text-foreground transition-colors"
+                              className="ml-auto text-[11px] uppercase tracking-[0.1em] text-muted-foreground hover:text-foreground transition-colors"
                             >
                               Remove
                             </button>
@@ -96,15 +93,15 @@ export default function CartDrawer() {
             </div>
 
             {items.length > 0 && (
-              <div className="p-6" style={{ boxShadow: "0 -1px 0 0 rgba(0,0,0,0.08)" }}>
+              <div className="p-6 border-t border-border">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="technical-label">Total</span>
-                  <span className="font-mono text-lg font-bold tabular-nums">GH₵ {totalPrice}</span>
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Total</span>
+                  <span className="text-lg font-semibold tabular-nums">GH₵{totalPrice}</span>
                 </div>
-                <button className="w-full h-12 bg-foreground text-background font-mono text-sm font-bold uppercase tracking-tight rounded-sm transition-colors hover:bg-primary active:scale-[0.98]">
+                <button className="w-full h-12 bg-foreground text-primary-foreground text-sm uppercase tracking-[0.1em] font-medium transition-opacity hover:opacity-90">
                   Checkout
                 </button>
-                <p className="technical-label text-center mt-3">Free delivery in Accra</p>
+                <p className="text-[11px] text-muted-foreground text-center mt-3">Free delivery in Accra</p>
               </div>
             )}
           </motion.div>

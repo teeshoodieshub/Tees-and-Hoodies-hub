@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,60 +6,56 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 0 0% 7%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
-    --primary: 24 95% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 92%;
-    --secondary-foreground: 0 0% 7%;
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 24 95% 50%;
-    --accent-foreground: 0 0% 100%;
+    --background: 30 25% 96%;
+    --foreground: 30 5% 15%;
+    --card: 30 20% 98%;
+    --card-foreground: 30 5% 15%;
+    --popover: 30 20% 98%;
+    --popover-foreground: 30 5% 15%;
+    --primary: 30 10% 25%;
+    --primary-foreground: 30 25% 96%;
+    --secondary: 30 15% 92%;
+    --secondary-foreground: 30 5% 15%;
+    --muted: 30 10% 90%;
+    --muted-foreground: 30 5% 50%;
+    --accent: 35 45% 42%;
+    --accent-foreground: 30 25% 96%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 7%;
-    --radius: 0.25rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 7%;
-    --sidebar-primary: 0 0% 7%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 92%;
-    --sidebar-accent-foreground: 0 0% 7%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 0 0% 7%;
-
-    --shadow-card: 0 10px 15px -3px rgba(0,0,0,0.04), 0 4px 6px -2px rgba(0,0,0,0.02);
-    --shadow-card-hover: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -5px rgba(0,0,0,0.04);
-    --shadow-subtle: 0 0 0 1px rgba(0,0,0,0.08);
+    --border: 30 10% 88%;
+    --input: 30 10% 88%;
+    --ring: 30 10% 25%;
+    --radius: 0rem;
+    --sidebar-background: 30 25% 96%;
+    --sidebar-foreground: 30 5% 15%;
+    --sidebar-primary: 30 5% 15%;
+    --sidebar-primary-foreground: 30 25% 96%;
+    --sidebar-accent: 30 15% 92%;
+    --sidebar-accent-foreground: 30 5% 15%;
+    --sidebar-border: 30 10% 88%;
+    --sidebar-ring: 30 10% 25%;
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 24 95% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 24 95% 50%;
-    --accent-foreground: 0 0% 100%;
+    --background: 30 5% 8%;
+    --foreground: 30 15% 92%;
+    --card: 30 5% 11%;
+    --card-foreground: 30 15% 92%;
+    --popover: 30 5% 11%;
+    --popover-foreground: 30 15% 92%;
+    --primary: 30 15% 80%;
+    --primary-foreground: 30 5% 8%;
+    --secondary: 30 5% 15%;
+    --secondary-foreground: 30 15% 92%;
+    --muted: 30 5% 15%;
+    --muted-foreground: 30 10% 55%;
+    --accent: 35 45% 55%;
+    --accent-foreground: 30 5% 8%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 98%;
+    --border: 30 5% 18%;
+    --input: 30 5% 18%;
+    --ring: 30 15% 80%;
   }
 }
 
@@ -72,27 +68,27 @@
     font-family: 'Instrument Sans', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Geist Mono', 'SF Mono', 'Fira Code', monospace;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     text-wrap: balance;
   }
 }
 
 @layer components {
   .technical-label {
-    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground;
+    @apply text-[11px] uppercase tracking-[0.2em] text-accent font-medium;
+    font-family: 'Instrument Sans', sans-serif;
   }
   .price-display {
     @apply font-medium tabular-nums;
   }
   .product-card {
     @apply relative bg-card transition-all duration-300;
-    box-shadow: var(--shadow-card);
   }
   .product-card:hover {
-    box-shadow: var(--shadow-card-hover);
+    opacity: 0.92;
   }
   .grid-line {
-    box-shadow: var(--shadow-subtle);
+    border: 1px solid hsl(var(--border));
   }
   .marquee-track {
     animation: marquee 20s linear infinite;

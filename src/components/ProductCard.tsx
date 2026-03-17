@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Product } from "@/data/products";
+
+const categoryLabels: Record<string, string> = {
+  "graphic-tees": "Graphic Tees",
+  "hoodies": "Hoodies",
+  "sleeveless-hoodies": "Sleeveless",
+};
 
 const fadeInUp = {
   initial: { opacity: 0, y: 12 },
@@ -12,34 +19,24 @@ const fadeInUp = {
 export default function ProductCard({ product }: { product: Product }) {
   return (
     <motion.div {...fadeInUp}>
-      <Link to={`/product/${product.id}`} className="group block product-card rounded-sm overflow-hidden">
-        <div className="relative aspect-[3/4] bg-secondary overflow-hidden">
+      <Link to={`/product/${product.id}`} className="group block">
+        <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
           />
-          {product.isNew && (
-            <span className="absolute top-3 left-3 px-2 py-1 bg-primary text-primary-foreground font-mono text-[10px] font-bold uppercase tracking-widest rounded-sm">
-              New
-            </span>
-          )}
         </div>
-        <div className="p-4">
-          <p className="technical-label mb-1">{product.specs}</p>
-          <h3 className="font-mono text-sm font-bold uppercase tracking-tight">{product.name}</h3>
-          <div className="flex items-center justify-between mt-2">
-            <span className="price-display text-sm">GH₵ {product.price}</span>
-            <div className="flex gap-1">
-              {product.colors.slice(0, 4).map((color) => (
-                <span
-                  key={color}
-                  className="w-3 h-3 rounded-full border border-foreground/10"
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
+        <div className="pt-5 pb-2">
+          <p className="technical-label mb-2">{categoryLabels[product.category] || product.category}</p>
+          <h3 className="font-serif text-lg md:text-xl font-medium italic">{product.name}</h3>
+          <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">{product.description}</p>
+          <div className="flex items-center justify-between mt-4">
+            <span className="price-display text-sm font-semibold">GH₵{product.price.toLocaleString()}.00</span>
+            <span className="text-accent text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+              View Details <ArrowRight className="w-3.5 h-3.5" />
+            </span>
           </div>
         </div>
       </Link>
