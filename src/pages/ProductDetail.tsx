@@ -174,8 +174,7 @@ export default function ProductPage() {
   const { data: products = [] } = useProducts();
   const product = products.find((p) => p.id === id);
   const [selectedVariants, setSelectedVariants] = useState<string[]>([]);
-  const [variantSizes, setVariantSizes] = useState<Record<string, string>>({});
-  const [quantity, setQuantity] = useState(1);
+  const [variantSelections, setVariantSelections] = useState<Record<string, Record<string, number>>>({});
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
 
@@ -208,22 +207,31 @@ export default function ProductPage() {
     currentImageVariant && selectedVariants.includes(currentImageVariant)
   );
   const selectedCount = selectedVariants.length;
-  const readyCount = selectedVariants.filter((variant) => Boolean(variantSizes[variant])).length;
+  const selectionCount = selectedVariants.reduce(
+    (total, variant) => total + Object.keys(variantSelections[variant] || {}).length,
+    0
+  );
+  const totalPieces = selectedVariants.reduce(
+    (total, variant) =>
+      total +
+      Object.values(variantSelections[variant] || {}).reduce((sum, qty) => sum + qty, 0),
+    0
+  );
 
   const toggleVariant = (variant: string, imageIdx?: number) => {
     setSelectedVariants((prev) => {
       if (prev.includes(variant)) {
-        setVariantSizes((sizes) => {
-          const next = { ...sizes };
+        setVariantSelections((selections) => {
+          const next = { ...selections };
           delete next[variant];
           return next;
         });
         return prev.filter((v) => v !== variant);
       }
 
-      setVariantSizes((sizes) => ({
-        ...sizes,
-        [variant]: sizes[variant] || product.sizes[0] || "",
+      setVariantSelections((selections) => ({
+        ...selections,
+        [variant]: selections[variant] || {},
       }));
       return [...prev, variant];
     });
@@ -232,13 +240,50 @@ export default function ProductPage() {
     }
   };
 
+  const toggleVariantSize = (variant: string, size: string) => {
+    setVariantSelections((prev) => {
+      const currentVariantSelections = prev[variant] || {};
+      const nextVariantSelections = { ...currentVariantSelections };
+
+      if (nextVariantSelections[size]) {
+        delete nextVariantSelections[size];
+      } else {
+        nextVariantSelections[size] = 1;
+      }
+
+      return {
+        ...prev,
+        [variant]: nextVariantSelections,
+      };
+    });
+  };
+
+  const updateVariantSizeQuantity = (variant: string, size: string, nextQty: number) => {
+    setVariantSelections((prev) => {
+      const currentVariantSelections = prev[variant] || {};
+      const nextVariantSelections = { ...currentVariantSelections };
+
+      if (nextQty <= 0) {
+        delete nextVariantSelections[size];
+      } else {
+        nextVariantSelections[size] = nextQty;
+      }
+
+      return {
+        ...prev,
+        [variant]: nextVariantSelections,
+      };
+    });
+  };
+
   const handleAddToCart = () => {
-    if (selectedVariants.length === 0) return;
+    if (totalPieces === 0) return;
     for (const variant of selectedVariants) {
-      const selectedSize = variantSizes[variant];
-      if (!selectedSize) continue;
-      for (let i = 0; i < quantity; i++) {
-        addItem(product, selectedSize, variant);
+      const selections = variantSelections[variant] || {};
+      for (const [size, qty] of Object.entries(selections)) {
+        for (let i = 0; i < qty; i++) {
+          addItem(product, size, variant);
+        }
       }
     }
   };
@@ -463,11 +508,9 @@ export default function ProductPage() {
                         {product.sizes.map((size) => (
                           <button
                             key={`${variant}-${size}`}
-                            onClick={() =>
-                              setVariantSizes((prev) => ({ ...prev, [variant]: size }))
-                            }
+                            onClick={() => toggleVariantSize(variant, size)}
                             className={`h-10 text-[11px] uppercase font-bold tracking-widest transition-all duration-300 border rounded-sm ${
-                              variantSizes[variant] === size
+                              variantSelections[variant]?.[size]
                                 ? "bg-foreground text-primary-foreground border-foreground shadow-lg"
                                 : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                             }`}
@@ -476,6 +519,32 @@ export default function ProductPage() {
                           </button>
                         ))}
                       </div>
+                      {Object.keys(variantSelections[variant] || {}).length > 0 && (
+                        <div className="space-y-2 pt-1">
+                          {Object.entries(variantSelections[variant] || {}).map(([size, qty]) => (
+                            <div key={`${variant}-${size}-qty`} className="flex items-center justify-between border border-border/60 px-3 py-2">
+                              <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                                {size}
+                              </p>
+                              <div className="flex items-center border border-border rounded-sm overflow-hidden bg-secondary/30">
+                                <button
+                                  onClick={() => updateVariantSizeQuantity(variant, size, qty - 1)}
+                                  className="w-9 h-9 flex items-center justify-center hover:bg-secondary transition-colors"
+                                >
+                                  <Minus className="w-3 h-3" />
+                                </button>
+                                <span className="text-sm tabular-nums w-10 text-center font-medium">{qty}</span>
+                                <button
+                                  onClick={() => updateVariantSizeQuantity(variant, size, qty + 1)}
+                                  className="w-9 h-9 flex items-center justify-center hover:bg-secondary transition-colors"
+                                >
+                                  <Plus className="w-3 h-3" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -484,30 +553,15 @@ export default function ProductPage() {
 
             {/* Quantity & Add to cart */}
             <div className="flex gap-4 pt-6">
-              <div className="flex items-center border border-border rounded-sm overflow-hidden bg-secondary/30">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-12 h-14 flex items-center justify-center hover:bg-secondary transition-colors"
-                >
-                  <Minus className="w-3 h-3" />
-                </button>
-                <span className="text-sm tabular-nums w-10 text-center font-medium">{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-12 h-14 flex items-center justify-center hover:bg-secondary transition-colors"
-                >
-                  <Plus className="w-3 h-3" />
-                </button>
-              </div>
               <button
                 onClick={handleAddToCart}
-                disabled={selectedCount === 0 || readyCount !== selectedCount}
-                className="flex-1 h-14 bg-foreground text-primary-foreground text-[11px] uppercase tracking-[0.2em] font-bold transition-all hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed group relative overflow-hidden flex items-center justify-center gap-2 rounded-sm"
+                disabled={selectedCount === 0 || totalPieces === 0}
+                className="w-full h-14 bg-foreground text-primary-foreground text-[11px] uppercase tracking-[0.2em] font-bold transition-all hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed group relative overflow-hidden flex items-center justify-center gap-2 rounded-sm"
               >
                 {selectedCount === 0
                   ? `Select ${usesImageDesignSelection ? "design(s)" : "color(s)"}`
-                  : readyCount !== selectedCount
-                  ? `Assign size (${readyCount}/${selectedCount})`
+                  : totalPieces === 0
+                  ? `Select size(s) (${selectionCount})`
                   : (
                   <>
                     Add to Bag
@@ -516,7 +570,7 @@ export default function ProductPage() {
                       animate={{ x: 0, opacity: 1 }}
                       className="inline-block"
                     >
-                      ({selectedCount} selected) - GHC {(product.price * quantity * readyCount).toLocaleString()}
+                      ({totalPieces} pieces / {selectionCount} selections) - GHC {(product.price * totalPieces).toLocaleString()}
                     </motion.span>
                   </>
                 )}

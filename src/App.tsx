@@ -17,6 +17,7 @@ import Terms from "./pages/Terms.tsx";
 import FAQ from "./pages/FAQ.tsx";
 import SizeGuide from "./pages/SizeGuide.tsx";
 import CustomPrints from "./pages/CustomPrints.tsx";
+import CustomMockupStudio from "./pages/CustomMockupStudio.tsx";
 import Checkout from "./pages/Checkout.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import AdminLogin from "./pages/admin/AdminLogin.tsx";
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/faq" element={<FAQ />} />
               <Route path="/size-guide" element={<SizeGuide />} />
               <Route path="/custom-prints" element={<CustomPrints />} />
+              <Route path="/custom-studio" element={<CustomMockupStudio />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="*" element={<NotFound />} />
             </Route>
