@@ -64,6 +64,21 @@ export type DbOrder = {
   order_items: DbOrderItem[];
 };
 
+export type DcmPaymentResult = {
+  success?: boolean;
+  status?: string;
+  message?: string;
+  error?: string;
+  responseCode?: string | number;
+  paymentId?: string | number;
+  nameEnquiryTransactionID?: string;
+  collectionTransactionID?: string;
+  data?: {
+    nameEnquiry?: unknown;
+    collection?: unknown;
+  };
+};
+
 export type DbCart = {
   id: string;
   status: string;
@@ -78,6 +93,12 @@ export type DbCart = {
 };
 
 const CART_ID_KEY = "tees_cart_id";
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function isUuid(value: string | null | undefined): value is string {
+  return typeof value === "string" && UUID_PATTERN.test(value);
+}
 
 const mapDbProduct = (row: DbProduct): Product => ({
   id: row.id,
@@ -331,7 +352,7 @@ export async function clearCartRemote(cartId: string): Promise<void> {
 }
 
 export async function createOrder(
-  cartId: string,
+  cartId: string | null,
   items: Array<{ product: Product; size: string; color: string; quantity: number }>,
   total: number,
   shippingDetails: {
@@ -344,15 +365,17 @@ export async function createOrder(
     payment_network?: string;
   }
 ): Promise<string | null> {
+  const orderPayload = {
+    total,
+    status: "pending",
+    ...shippingDetails,
+    payment_status: "pending",
+    ...(isUuid(cartId) ? { cart_id: cartId } : {}),
+  };
+
   const { data, error } = await supabase
     .from("orders")
-    .insert({
-      cart_id: cartId,
-      total,
-      status: "pending",
-      ...shippingDetails,
-      payment_status: "pending"
-    })
+    .insert(orderPayload)
     .select("id")
     .single();
 
@@ -385,7 +408,7 @@ export async function initiateDcmPayment(
   network: string,
   orderId: string,
   narration?: string
-) {
+): Promise<DcmPaymentResult> {
   const { data, error } = await supabase.functions.invoke("pay-dcm", {
     body: {
       accountNumber,
@@ -418,7 +441,57 @@ export async function initiateDcmPayment(
     }
     throw new Error(message);
   }
-  return data;
+  return data as DcmPaymentResult;
+}
+
+export function getDcmPaymentOutcome(paymentResult: DcmPaymentResult) {
+  const responseCode = String(paymentResult?.responseCode ?? "");
+  const rawStatus = String(paymentResult?.status ?? "").toLowerCase();
+  const hasTransactionReference = Boolean(
+    paymentResult?.collectionTransactionID ||
+      paymentResult?.nameEnquiryTransactionID ||
+      paymentResult?.paymentId
+  );
+
+  const accepted =
+    paymentResult?.success === true ||
+    responseCode === "000" ||
+    rawStatus === "success" ||
+    rawStatus === "approved" ||
+    rawStatus === "completed" ||
+    rawStatus === "pending" ||
+    rawStatus === "processing" ||
+    rawStatus === "initiated" ||
+    hasTransactionReference;
+
+  return {
+    accepted,
+    status: accepted ? "initiated" : rawStatus || "failed",
+    reference:
+      paymentResult?.collectionTransactionID ||
+      paymentResult?.nameEnquiryTransactionID ||
+      String(paymentResult?.paymentId ?? ""),
+  };
+}
+
+export async function updateOrderPaymentState(
+  orderId: string,
+  paymentResult: DcmPaymentResult
+): Promise<void> {
+  const outcome = getDcmPaymentOutcome(paymentResult);
+  const payload = {
+    payment_status: outcome.status,
+    ...(outcome.reference ? { payment_reference: outcome.reference } : {}),
+  };
+
+  const { error } = await supabase
+    .from("orders")
+    .update(payload)
+    .eq("id", orderId);
+
+  if (error) {
+    throw error;
+  }
 }
 
 export async function listOrders(): Promise<DbOrder[]> {

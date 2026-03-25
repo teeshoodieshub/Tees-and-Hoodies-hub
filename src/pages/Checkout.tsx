@@ -1,7 +1,12 @@
 ﻿import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { createOrder, initiateDcmPayment } from "@/lib/supabaseApi";
+import {
+  createOrder,
+  getDcmPaymentOutcome,
+  initiateDcmPayment,
+  updateOrderPaymentState,
+} from "@/lib/supabaseApi";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,7 +97,7 @@ export default function Checkout() {
     try {
       // 1. Create Order in Supabase
       const orderId = await createOrder(
-        localStorage.getItem("tees_cart_id") || "",
+        localStorage.getItem("tees_cart_id"),
         items,
         totalPrice,
         {
@@ -121,24 +126,17 @@ export default function Checkout() {
 
       console.log("Payment Result:", paymentResult);
 
-      // Only treat explicit provider acknowledgements as success.
-      // Do not infer success from generic message text.
-      const responseCode = String(paymentResult?.responseCode ?? "");
-      const status = String(paymentResult?.status ?? "").toLowerCase();
-      const isSuccess =
-        paymentResult?.success === true ||
-        responseCode === "000" ||
-        status === "success" ||
-        status === "approved" ||
-        status === "completed";
+      const paymentOutcome = getDcmPaymentOutcome(paymentResult);
 
-      if (!isSuccess) {
+      if (!paymentOutcome.accepted) {
         throw new Error(
           paymentResult?.message ||
             paymentResult?.error ||
             "Payment request was not accepted. Please try again."
         );
       }
+
+      await updateOrderPaymentState(orderId, paymentResult);
 
       // 3. Accepted by provider (prompt should arrive on phone)
       toast({
