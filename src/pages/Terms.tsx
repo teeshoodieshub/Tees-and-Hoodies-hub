@@ -10,7 +10,7 @@ const fadeInUp = {
 
 export default function TermsPage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Terms of Service"
         description="Review the terms of service for Tees & Hoodies Hub. Understand our policies on orders, payments, intellectual property, and liability."

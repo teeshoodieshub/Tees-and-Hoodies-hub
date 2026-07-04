@@ -38,7 +38,7 @@ const faqs = [
 
 export default function FAQPage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="FAQ"
         description="Frequently asked questions about Tees & Hoodies Hub. Learn about order tracking, exchanges, sizing, care instructions, and more."

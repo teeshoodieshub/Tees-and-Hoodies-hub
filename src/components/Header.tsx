@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
-  { to: "/shop", label: "Categories" },
+  { to: "/custom-studio", label: "Studio Page" },
 ];
 
 export default function Header() {
@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors ${
+      className={`${isHome ? "absolute" : "relative"} top-0 left-0 right-0 z-50 border-b transition-colors ${
         isHome
           ? "border-white/10 bg-transparent text-white"
           : "border-border bg-background/95 text-foreground backdrop-blur-sm"
@@ -33,7 +33,7 @@ export default function Header() {
         >
           <span
             className={`mr-1 rounded-[6px] px-2 py-1 ${
-              isHome ? "bg-white/90 text-[#765343]" : "bg-foreground text-background"
+              isHome ? "bg-background/95 text-foreground" : "bg-foreground text-background"
             }`}
           >
             TEES
@@ -46,11 +46,11 @@ export default function Header() {
           {navLinks.map((link) => (
             <Link
               key={link.label}
-              to={link.label === "Categories" ? "/shop#categories" : link.to}
+              to={link.to}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                location.pathname === link.to && link.label !== "Categories"
+                location.pathname === link.to
                   ? isHome
-                    ? "bg-white/90 text-[#111111]"
+                    ? "bg-background/95 text-foreground"
                     : "bg-foreground text-background"
                   : isHome
                     ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
@@ -114,14 +114,14 @@ export default function Header() {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className={`md:hidden overflow-hidden border-t ${
-              isHome ? "border-white/10 bg-[#2c231f]/95 text-white" : "border-border bg-background"
+              isHome ? "border-white/10 bg-primary/95 text-white" : "border-border bg-background"
             }`}
           >
             <div className="container py-6 flex flex-col items-center gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
-                  to={link.label === "Categories" ? "/shop#categories" : link.to}
+                  to={link.to}
                   onClick={() => setMobileOpen(false)}
                   className={isHome ? "py-2 text-sm font-medium text-white/80 hover:text-white" : "py-2 text-sm font-medium text-muted-foreground hover:text-foreground"}
                 >

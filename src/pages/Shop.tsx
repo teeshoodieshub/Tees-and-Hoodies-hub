@@ -27,7 +27,7 @@ export default function ShopPage() {
     : products.filter((p) => p.category === activeCategory);
 
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Shop Collection"
         description="Browse our full collection of premium heavyweight tees, hoodies, and sleeveless cuts. 450-500 GSM cotton, relaxed street fit, made in Ghana. Shop by category and find your perfect piece."

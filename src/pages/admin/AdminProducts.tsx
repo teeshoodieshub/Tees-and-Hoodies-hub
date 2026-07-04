@@ -628,7 +628,7 @@ export default function AdminProducts() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{product.name}</p>
                 <p className="text-xs text-muted-foreground mt-1">{product.id}</p>
-                <p className="text-xs text-muted-foreground mt-1">GHâ‚µ{product.price}</p>
+                <p className="text-xs text-muted-foreground mt-1">GHC {product.price}</p>
                 {product.isFeatured && (
                   <p className="text-[10px] uppercase tracking-[0.15em] text-accent mt-1">Featured</p>
                 )}

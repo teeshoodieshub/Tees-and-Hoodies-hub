@@ -10,7 +10,7 @@ const fadeInUp = {
 
 export default function SizeGuidePage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Size Guide"
         description="Find your perfect fit with the Tees & Hoodies Hub size guide. Oversized streetwear sizing, measurement tips, and fit recommendations for all our tees and hoodies."

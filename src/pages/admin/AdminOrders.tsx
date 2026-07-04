@@ -10,6 +10,7 @@ import {
 import { toast } from "sonner";
 import { Download, Loader2, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getColorLabel } from "@/lib/colors";
 
 function DesignDownloadButton({ fileRef }: { fileRef: string }) {
   const [isPreparing, setIsPreparing] = useState(false);
@@ -133,7 +134,7 @@ export default function AdminOrders() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold">GH₵{order.total}</p>
+                    <p className="text-sm font-semibold">GHC {order.total}</p>
                     <p className="text-[10px] text-muted-foreground mt-1 flex items-center justify-end gap-1">
                       <Eye className="w-3 h-3" /> {isExpanded ? "Hide" : "View"} Details
                     </p>
@@ -163,7 +164,7 @@ export default function AdminOrders() {
                                 <p className="text-sm font-medium truncate">{item.product?.name}</p>
                                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
                                   <p className="text-xs text-muted-foreground">
-                                    <span className="font-medium text-foreground">{item.quantity}</span> x GH₵{item.unit_price}
+                                    <span className="font-medium text-foreground">{item.quantity}</span> x GHC {item.unit_price}
                                   </p>
                                   <p className="text-xs text-muted-foreground flex items-center gap-1.5">
                                     Size: <span className="font-medium text-foreground uppercase">{item.size}</span>
@@ -173,14 +174,14 @@ export default function AdminOrders() {
                                     <span 
                                       className="inline-block w-2.5 h-2.5 rounded-full border border-border" 
                                       style={{ backgroundColor: item.color }} 
-                                      title={item.color}
+                                      title={getColorLabel(item.color)}
                                     />
-                                    <span className="font-medium text-foreground italic">{item.color}</span>
+                                    <span className="font-medium text-foreground italic">{getColorLabel(item.color)}</span>
                                   </div>
                                 </div>
                               </div>
                               <div className="text-right shrink-0">
-                                <p className="text-sm font-medium">GH₵{item.quantity * item.unit_price}</p>
+                                <p className="text-sm font-medium">GHC {item.quantity * item.unit_price}</p>
                               </div>
                             </div>
                           ))}
@@ -249,11 +250,11 @@ export default function AdminOrders() {
                              <div className="w-48 space-y-1.5 pt-2">
                                <div className="flex justify-between text-[11px]">
                                  <span className="text-muted-foreground">Subtotal</span>
-                                 <span>GH₵{order.total}</span>
+                                 <span>GHC {order.total}</span>
                                </div>
                                <div className="flex justify-between text-xs font-bold border-t border-border pt-2">
                                  <span>Grand Total</span>
-                                 <span>GH₵{order.total}</span>
+                                 <span>GHC {order.total}</span>
                                </div>
                              </div>
                            </div>

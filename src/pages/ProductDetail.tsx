@@ -6,18 +6,7 @@ import { useCart } from "@/context/CartContext";
 import ProductCard from "@/components/ProductCard";
 import { useProducts } from "@/hooks/use-products";
 import SEOHead from "@/components/SEOHead";
-
-const colorNames: Record<string, string> = {
-  "#111": "Black",
-  "#fff": "White",
-  "#8B8B8B": "Ash",
-  "#722F37": "Wine",
-  "#4B5320": "Army Green",
-  "#F5F5DC": "Cream",
-  "#FF5F7D": "Pink",
-  "#FFD400": "Yellow",
-  "#6D3FD1": "Purple",
-};
+import { getColorLabel } from "@/lib/colors";
 
 function AccordionItem({ title, content }: { title: string; content: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -181,16 +170,28 @@ export default function ProductPage() {
   const [variantSelections, setVariantSelections] = useState<Record<string, Record<string, number>>>({});
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
+  const hasSeparateFeaturedImage = Boolean(
+    product?.featuredImage &&
+      product.images?.length &&
+      !product.images.includes(product.featuredImage) &&
+      !product.useDesignSelection
+  );
+  const galleryImages = product
+    ? hasSeparateFeaturedImage
+      ? [product.featuredImage, ...product.images]
+      : product.images
+    : [];
+  const imageVariantOffset = hasSeparateFeaturedImage ? 1 : 0;
 
   const handlePrev = useCallback(() =>
-    setActiveImageIndex(i => (i - 1 + (product?.images?.length ?? 1)) % (product?.images?.length ?? 1)),
+    setActiveImageIndex(i => (i - 1 + (galleryImages.length || 1)) % (galleryImages.length || 1)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [product?.images?.length]
+    [galleryImages.length]
   );
   const handleNext = useCallback(() =>
-    setActiveImageIndex(i => (i + 1) % (product?.images?.length ?? 1)),
+    setActiveImageIndex(i => (i + 1) % (galleryImages.length || 1)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [product?.images?.length]
+    [galleryImages.length]
   );
 
   if (!product) {
@@ -206,7 +207,7 @@ export default function ProductPage() {
   const usesImageDesignSelection = product.useDesignSelection;
   const currentImageVariant = usesImageDesignSelection
     ? `Design ${activeImageIndex + 1}`
-    : product.colors[activeImageIndex];
+    : product.colors[activeImageIndex - imageVariantOffset];
   const isCurrentImageVariantSelected = Boolean(
     currentImageVariant && selectedVariants.includes(currentImageVariant)
   );
@@ -239,7 +240,7 @@ export default function ProductPage() {
       }));
       return [...prev, variant];
     });
-    if (typeof imageIdx === "number" && product.images[imageIdx]) {
+    if (typeof imageIdx === "number" && galleryImages[imageIdx]) {
       setActiveImageIndex(imageIdx);
     }
   };
@@ -294,18 +295,18 @@ export default function ProductPage() {
 
   return (
     <>
-      <main className="pt-24 pb-16">
+      <main className="pt-12 pb-16">
       <SEOHead
         title={product.name}
         description={product.description || `Shop ${product.name} from Tees & Hoodies Hub. Premium heavyweight streetwear crafted in Accra, Ghana. ${product.specs || ""}`}
         canonical={`/product/${product.id}`}
-        ogImage={product.images?.[0]}
+        ogImage={product.featuredImage || galleryImages[0]}
         ogType="product"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Product",
           "name": product.name,
-          "image": product.images || [],
+          "image": galleryImages,
           "description": product.description || "",
           "brand": { "@type": "Brand", "name": "Tees & Hoodies Hub" },
           "offers": {
@@ -326,10 +327,12 @@ export default function ProductPage() {
           {/* Image Gallery */}
           <div className="lg:col-span-7 flex flex-col-reverse lg:flex-row gap-4">
             {/* Thumbnails */}
-            {product.images && product.images.length > 1 && (
+            {galleryImages.length > 1 && (
               <div className="grid grid-flow-col auto-cols-max grid-rows-7 gap-3 overflow-x-auto overflow-y-hidden no-scrollbar scroll-smooth py-1 lg:w-[184px] lg:max-w-[184px] lg:shrink-0 lg:gap-2">
-                {product.images.map((img, idx) => {
-                  const linkedVariant = usesImageDesignSelection ? `Design ${idx + 1}` : product.colors[idx];
+                {galleryImages.map((img, idx) => {
+                  const linkedVariant = usesImageDesignSelection
+                    ? `Design ${idx + 1}`
+                    : product.colors[idx - imageVariantOffset];
                   const isVariantSelected = Boolean(linkedVariant && selectedVariants.includes(linkedVariant));
                   const isActive = activeImageIndex === idx;
                   return (
@@ -342,7 +345,7 @@ export default function ProductPage() {
                         }
                         setActiveImageIndex(idx);
                       }}
-                      title={linkedVariant || `View ${idx + 1}`}
+                      title={linkedVariant || "Cover image"}
                       className={`relative flex-shrink-0 w-16 h-20 bg-secondary overflow-hidden transition-all duration-300 rounded-sm lg:h-[72px] lg:w-14 ${
                         isActive
                           ? "ring-2 ring-foreground opacity-100 scale-105"
@@ -403,7 +406,7 @@ export default function ProductPage() {
                 className="w-full h-full"
               >
                 <img 
-                  src={product.images?.[activeImageIndex] || ""} 
+                  src={galleryImages[activeImageIndex] || ""} 
                   alt={product.name} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                 />
@@ -495,14 +498,14 @@ export default function ProductPage() {
                   {product.colors.map((color, colorIdx) => (
                     <button
                       key={color}
-                      onClick={() => toggleVariant(color, colorIdx)}
+                      onClick={() => toggleVariant(color, colorIdx + imageVariantOffset)}
                       className={`group relative w-10 h-10 rounded-full transition-all duration-300 ${
                         selectedVariants.includes(color)
                           ? "ring-2 ring-foreground ring-offset-4 ring-offset-background scale-110"
                           : "hover:scale-110"
                       }`}
                       style={{ backgroundColor: color, border: "1px solid rgba(0,0,0,0.1)" }}
-                      aria-label={colorNames[color] || color}
+                      aria-label={getColorLabel(color)}
                     >
                       {selectedVariants.includes(color) && (
                         <motion.div className="absolute inset-0 flex items-center justify-center">
@@ -528,7 +531,7 @@ export default function ProductPage() {
                   {selectedVariants.map((variant) => (
                     <div key={variant} className="border border-border p-3 space-y-2">
                       <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-                        {usesImageDesignSelection ? variant : `${colorNames[variant] || variant}`}
+                        {usesImageDesignSelection ? variant : getColorLabel(variant)}
                       </p>
                       <div className="grid grid-cols-4 gap-2">
                         {product.sizes.map((size) => (
@@ -656,9 +659,9 @@ export default function ProductPage() {
     </main>
 
     <AnimatePresence>
-      {isZoomed && product.images && (
+      {isZoomed && galleryImages.length > 0 && (
         <ZoomModal
-          images={product.images}
+          images={galleryImages}
           activeIndex={activeImageIndex}
           onClose={() => setIsZoomed(false)}
           onPrev={handlePrev}

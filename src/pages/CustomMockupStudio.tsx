@@ -251,7 +251,7 @@ function GarmentMockup({
     <svg viewBox="0 0 500 620" className="h-full w-full" role="img" aria-label={`${color.name} ${productType} mockup`}>
       <defs>
         <filter id="studio-shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="18" stdDeviation="22" floodColor="#241b13" floodOpacity="0.16" />
+          <feDropShadow dx="0" dy="18" stdDeviation="22" floodColor="#2D4033" floodOpacity="0.16" />
         </filter>
         <linearGradient id="cloth-light" x1="0" x2="1" y1="0" y2="1">
           <stop offset="0" stopColor="rgba(255,255,255,0.22)" />
@@ -259,7 +259,7 @@ function GarmentMockup({
           <stop offset="1" stopColor="rgba(0,0,0,0.14)" />
         </linearGradient>
       </defs>
-      <rect x="34" y="30" width="432" height="545" rx="2" fill="#eee6dc" opacity="0.34" />
+      <rect x="34" y="30" width="432" height="545" rx="2" fill="#F1F0EA" opacity="0.34" />
       <g filter="url(#studio-shadow)">
         {isSleeve ? (
           <path
@@ -388,8 +388,8 @@ export default function CustomMockupStudio() {
       height: 420,
       backgroundColor: "transparent",
       preserveObjectStacking: true,
-      selectionColor: "rgba(164, 116, 60, 0.12)",
-      selectionBorderColor: "#a4743c",
+      selectionColor: "rgba(166, 139, 92, 0.16)",
+      selectionBorderColor: "#A68B5C",
       selectionLineWidth: 1,
     });
 
@@ -589,7 +589,7 @@ export default function CustomMockupStudio() {
     const ctx = exportCanvas.getContext("2d");
     if (!ctx) return null;
 
-    ctx.fillStyle = "#f4eee6";
+    ctx.fillStyle = "#F1F0EA";
     ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
 
     const mockupAsset = getMockupAsset(selectedProduct.id, selectedColor.name, placement);
@@ -650,7 +650,7 @@ export default function CustomMockupStudio() {
       image.src = designDataUrl;
     });
 
-    ctx.fillStyle = "#302820";
+    ctx.fillStyle = "#2D4033";
     ctx.font = "700 24px Instrument Sans, Arial";
     ctx.fillText(`Custom Print Studio - ${selectedProduct.label}`, 64, 76);
     ctx.font = "400 18px Instrument Sans, Arial";
@@ -762,7 +762,7 @@ export default function CustomMockupStudio() {
 
   if (submittedOrderId) {
     return (
-      <main className="min-h-screen pt-28">
+      <main className="min-h-screen pt-12">
         <SEOHead
           title="Custom Print Studio"
           description="Create custom printing orders with live apparel mockups, artwork upload, size breakdowns, and delivery details."
@@ -810,7 +810,7 @@ export default function CustomMockupStudio() {
   }
 
   return (
-    <main className="min-h-screen bg-background pt-24">
+    <main className="min-h-screen bg-background pt-12">
       <SEOHead
         title="Custom Print Studio"
         description="Create custom printing orders with live apparel mockups, artwork upload, size breakdowns, and delivery details."
@@ -962,7 +962,7 @@ export default function CustomMockupStudio() {
             </div>
           </aside>
 
-          <section className="min-h-[690px] border border-border bg-[#f1e9de]">
+          <section className="min-h-[690px] border border-border bg-secondary">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-background px-4 py-3">
               <div>
                 <p className="text-sm font-semibold">Live print preview</p>

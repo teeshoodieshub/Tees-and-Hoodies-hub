@@ -10,7 +10,7 @@ const fadeInUp = {
 
 export default function PrivacyPage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Privacy Policy"
         description="Read the Tees & Hoodies Hub privacy policy. Learn how we collect, use, and protect your personal information when you shop with us."

@@ -30,6 +30,7 @@ import {
   readSubmittedPayment,
   type SubmittedPayment,
 } from "@/lib/paymentSession";
+import { getColorLabel } from "@/lib/colors";
 import type { CartItem } from "@/context/CartContext";
 
 const NETWORKS = [
@@ -342,7 +343,7 @@ export default function Checkout() {
   };
 
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-12 pt-24">
+    <div className="container max-w-6xl mx-auto px-4 py-12">
       <button
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
@@ -543,7 +544,7 @@ export default function Checkout() {
                     {item.size} /{" "}
                     {item.product.useDesignSelection
                       ? `Design: ${item.color}`
-                      : `Color: ${item.color}`}
+                      : `Color: ${getColorLabel(item.color)}`}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">Qty: {item.quantity}</p>
                 </div>

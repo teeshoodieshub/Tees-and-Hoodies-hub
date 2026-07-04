@@ -242,10 +242,10 @@ export default function HomePage() {
                     className="absolute inset-0 h-full w-full scale-105 object-cover"
                   />
                   <div
-                    className="absolute inset-0 bg-[linear-gradient(90deg,rgba(32,20,18,0.84)_0%,rgba(79,43,33,0.56)_44%,rgba(30,117,125,0.48)_100%)]"
+                    className="absolute inset-0 bg-[linear-gradient(90deg,rgba(45,64,51,0.88)_0%,rgba(45,64,51,0.62)_42%,rgba(138,154,91,0.42)_100%)]"
                   />
                   <div
-                    className="absolute inset-0 bg-[radial-gradient(circle_at_68%_45%,rgba(255,255,255,0.12),transparent_32%),linear-gradient(180deg,rgba(0,0,0,0.16)_0%,rgba(0,0,0,0.08)_36%,rgba(0,0,0,0.46)_100%)]"
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_68%_45%,rgba(166,139,92,0.18),transparent_32%),linear-gradient(180deg,rgba(45,64,51,0.12)_0%,rgba(45,64,51,0.08)_36%,rgba(45,64,51,0.56)_100%)]"
                   />
                   <div className="absolute inset-x-0 top-[72px] h-px bg-white/10" />
 
@@ -319,18 +319,18 @@ export default function HomePage() {
       )}
 
       {/* About strip */}
-      <section id="story" className="overflow-hidden py-20 md:py-28 bg-secondary">
-        <div className="container max-w-6xl">
-          <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-            <motion.div {...fadeInUp} className="text-center md:text-left">
-              <p className="technical-label mb-3">Our Story</p>
+      <section id="story" className="overflow-hidden bg-secondary text-secondary-foreground">
+        <div className="container max-w-6xl py-20 md:py-0">
+          <div className="grid gap-10 md:min-h-[560px] md:grid-cols-[0.9fr_1.1fr] md:items-stretch">
+            <motion.div {...fadeInUp} className="flex flex-col justify-center text-center md:py-20 md:text-left">
+              <p className="technical-label mb-3 text-secondary-foreground/70">Our Story</p>
               <h2 className="font-serif text-3xl md:text-5xl font-medium italic mb-6 text-lift-hover">Crafted in West Africa</h2>
-              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto md:mx-0">
+              <p className="text-secondary-foreground/82 leading-relaxed max-w-xl mx-auto md:mx-0">
                 Every piece is designed in Accra, for the world. We source 450-500GSM heavyweight cotton because we believe streetwear should feel as good as it looks.
               </p>
               <Link
                 to="/about"
-                className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-accent border-b border-accent/40 pb-1 hover:border-accent transition-colors link-underline-fx"
+                className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-secondary-foreground border-b border-secondary-foreground/45 pb-1 hover:border-secondary-foreground transition-colors link-underline-fx"
               >
                 Learn More <ArrowRight className="w-4 h-4" />
               </Link>
@@ -340,7 +340,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="relative min-h-[320px] overflow-hidden md:min-h-[440px]"
+              className="relative min-h-[320px] overflow-hidden md:min-h-full"
             >
               <img
                 src={storyImageUrl}
@@ -377,13 +377,14 @@ export default function HomePage() {
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/88 via-foreground/42 to-foreground/8" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/35 to-foreground/10" />
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-foreground/95 via-foreground/70 to-transparent" />
                   <div className="relative z-10 flex h-full min-h-[340px] flex-col justify-end p-6 md:min-h-[470px] md:p-8">
                     <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full border border-primary-foreground/35 bg-primary-foreground/10 backdrop-blur-sm">
                       <Icon className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <h3 className="font-serif text-3xl italic mb-4 md:text-4xl">{service.title}</h3>
-                    <p className="text-sm text-primary-foreground/82 leading-relaxed md:text-base">{service.description}</p>
+                    <p className="text-sm text-primary-foreground/90 leading-relaxed md:text-base">{service.description}</p>
                   </div>
                 </motion.div>
               );
@@ -393,18 +394,18 @@ export default function HomePage() {
       </section>
 
       {/* Custom Print */}
-      <section className="py-20 md:py-28 bg-secondary">
+      <section className="py-20 md:py-28 bg-secondary text-secondary-foreground">
         <div className="container max-w-5xl">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <motion.div {...fadeInUp}>
-              <p className="technical-label mb-3">Custom Print</p>
+              <p className="technical-label mb-3 text-secondary-foreground/70">Custom Print</p>
               <h2 className="font-serif text-3xl md:text-4xl font-medium italic mb-5 text-lift-hover">Your Design, Our Production</h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-secondary-foreground/82 leading-relaxed mb-6">
                 From one-off drops to bulk runs, we print on premium blanks with clear placement and long-lasting finish.
               </p>
               <Link
                 to="/custom-prints"
-                className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-accent border-b border-accent/40 pb-1 hover:border-accent transition-colors link-underline-fx"
+                className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-secondary-foreground border-b border-secondary-foreground/45 pb-1 hover:border-secondary-foreground transition-colors link-underline-fx"
               >
                 Start Custom Order <ArrowRight className="w-4 h-4" />
               </Link>

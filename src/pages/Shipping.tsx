@@ -10,7 +10,7 @@ const fadeInUp = {
 
 export default function ShippingPage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Shipping & Delivery"
         description="Shipping and delivery information for Tees & Hoodies Hub. 1-3 day delivery in Accra, nationwide and international shipping available. Order tracking included."

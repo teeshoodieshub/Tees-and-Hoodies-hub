@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { listOrders, listCustomOrders } from "@/lib/supabaseApi";
-import { Loader2, DollarSign, ShoppingBag, TrendingUp, Package } from "lucide-react";
+import { Loader2, ShoppingBag, TrendingUp, Package } from "lucide-react";
 import {
   Area,
   AreaChart,
@@ -119,8 +119,8 @@ export default function AdminAnalytics() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <MetricCard
             title="Total Revenue"
-            value={`GHâ‚µ ${totalRevenue.toLocaleString()}`}
-            icon={<DollarSign className="w-4 h-4 text-muted-foreground" />}
+            value={`GHC ${totalRevenue.toLocaleString()}`}
+            icon={<span className="text-[10px] font-semibold text-muted-foreground">GHC</span>}
           />
           <MetricCard
             title="Total Store Orders"
@@ -228,7 +228,7 @@ export default function AdminAnalytics() {
                   </div>
                   <div className="text-right shrink-0">
                     {activity.amount > 0 && (
-                      <p className="text-sm font-semibold">GHâ‚µ{activity.amount}</p>
+                      <p className="text-sm font-semibold">GHC {activity.amount}</p>
                     )}
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-0.5 font-medium">
                       {activity.status}

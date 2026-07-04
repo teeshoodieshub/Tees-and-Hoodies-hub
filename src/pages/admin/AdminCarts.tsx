@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { listCarts } from "@/lib/supabaseApi";
+import { getColorLabel } from "@/lib/colors";
 
 export default function AdminCarts() {
   const { data: carts = [] } = useQuery({
@@ -38,7 +39,7 @@ export default function AdminCarts() {
                   <div className="flex-1">
                     <p className="text-sm">{item.product?.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {item.quantity} x {item.size}, {item.color}
+                      {item.quantity} x {item.size}, {getColorLabel(item.color)}
                     </p>
                   </div>
                 </div>

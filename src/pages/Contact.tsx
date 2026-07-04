@@ -21,7 +21,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Contact Us"
         description="Get in touch with Tees & Hoodies Hub. Reach us via WhatsApp, Instagram, or email at hello@teesandhoodies.com. Based in Accra, Ghana."

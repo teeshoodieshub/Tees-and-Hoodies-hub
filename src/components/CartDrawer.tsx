@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { getColorLabel } from "@/lib/colors";
 
 export default function CartDrawer() {
   const { items, isCartOpen, setIsCartOpen, removeItem, updateQuantity, totalPrice, totalItems } = useCart();
@@ -69,7 +70,7 @@ export default function CartDrawer() {
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium truncate">{item.product.name}</p>
                           <p className="text-[11px] text-muted-foreground mt-1">
-                            Size: {item.size} Â· {variantLabel}: {item.color}
+                            Size: {item.size} Â· {variantLabel}: {item.product.useDesignSelection ? item.color : getColorLabel(item.color)}
                           </p>
                           <p className="text-sm font-semibold mt-1">GHC {item.product.price}</p>
                           <div className="flex items-center gap-3 mt-2">

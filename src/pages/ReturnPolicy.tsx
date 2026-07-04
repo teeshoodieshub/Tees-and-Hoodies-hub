@@ -10,7 +10,7 @@ const fadeInUp = {
 
 export default function ReturnPolicyPage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Return Policy"
         description="Tees & Hoodies Hub return and exchange policy. 14-day returns on unworn items with tags attached. Easy process for refunds and exchanges."

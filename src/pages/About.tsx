@@ -10,7 +10,7 @@ const fadeInUp = {
 
 export default function AboutPage() {
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="About Us"
         description="Tees & Hoodies Hub was born in the creative heart of Accra — Osu. We craft 450-500 GSM heavyweight streetwear inspired by West African culture. Founded in 2023, designed in Accra for the world."

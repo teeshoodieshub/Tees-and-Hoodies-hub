@@ -171,7 +171,7 @@ export default function CustomPrints() {
 
   if (submitted) {
     return (
-      <main className="pt-28 pb-16">
+      <main className="pt-12 pb-16">
         <div className="container max-w-2xl">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -219,7 +219,7 @@ export default function CustomPrints() {
   }
 
   return (
-    <main className="pt-28 pb-16">
+    <main className="pt-12 pb-16">
       <SEOHead
         title="Custom Printing Service"
         description="Order custom printed tees, hoodies, and apparel from Tees & Hoodies Hub. Upload your design, choose placement, and get premium prints for your brand, event, or team. Minimum 10 pieces, 5-7 business day turnaround."
