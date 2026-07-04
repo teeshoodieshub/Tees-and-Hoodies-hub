@@ -4,20 +4,35 @@ import type { Session } from "@supabase/supabase-js";
 
 export function useAdminSession() {
   const [session, setSession] = useState<Session | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
 
-    supabase.auth.getSession().then(({ data }) => {
+    const applySession = async (nextSession: Session | null) => {
       if (!active) return;
-      setSession(data.session ?? null);
+      setSession(nextSession);
+
+      if (!nextSession) {
+        setIsAdmin(false);
+        setLoading(false);
+        return;
+      }
+
+      const { data, error } = await supabase.rpc("is_admin");
+      if (!active) return;
+      setIsAdmin(Boolean(data) && !error);
       setLoading(false);
+    };
+
+    supabase.auth.getSession().then(({ data }) => {
+      applySession(data.session ?? null);
     });
 
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      if (!active) return;
-      setSession(nextSession);
+      setLoading(true);
+      applySession(nextSession);
     });
 
     return () => {
@@ -26,5 +41,5 @@ export function useAdminSession() {
     };
   }, []);
 
-  return { session, loading };
+  return { session, isAdmin, loading };
 }

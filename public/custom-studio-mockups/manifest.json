@@ -1,0 +1,2173 @@
+{
+  "generatedAt": "2026-07-02T20:49:39.278662+00:00",
+  "products": {
+    "T-Shirts": {
+      "Black": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-black-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-black-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-black-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-black-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "White": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-white-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-white-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-white-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-white-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Deep Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-deep-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-deep-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-deep-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-deep-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Wine": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-wine-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-wine-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-wine-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-wine-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Army Green": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-army-green-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-army-green-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-army-green-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-army-green-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Cream": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-cream-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-cream-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-cream-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-cream-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Purple": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-purple-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-purple-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-purple-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-purple-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Navy": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-navy-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-navy-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-navy-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-navy-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Red": {
+        "front": {
+          "src": "/custom-studio-mockups/t-shirts-red-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/t-shirts-red-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-red-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/t-shirts-red-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      }
+    },
+    "Hoodies": {
+      "Black": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-black-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-black-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-black-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-black-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "White": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-white-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-white-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-white-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-white-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Deep Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-deep-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-deep-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-deep-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-deep-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Wine": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-wine-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-wine-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-wine-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-wine-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Army Green": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-army-green-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-army-green-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-army-green-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-army-green-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Cream": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-cream-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-cream-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-cream-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-cream-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Purple": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-purple-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-purple-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-purple-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-purple-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Navy": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-navy-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-navy-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-navy-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-navy-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      },
+      "Red": {
+        "front": {
+          "src": "/custom-studio-mockups/hoodies-red-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[25%] h-[230px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 292,
+              "width": 300,
+              "height": 300
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/hoodies-red-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[32%] top-[24%] h-[260px] w-[220px]",
+            "export": {
+              "x": 330,
+              "y": 275,
+              "width": 300,
+              "height": 340
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-red-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/hoodies-red-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[37%] top-[22%] h-[320px] w-[170px]",
+            "export": {
+              "x": 380,
+              "y": 260,
+              "width": 220,
+              "height": 415
+            }
+          }
+        }
+      }
+    },
+    "Sleeveless T-Shirts": {
+      "Black": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-black-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-black-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-black-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-black-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "White": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-white-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-white-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-white-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-white-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Deep Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-deep-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-deep-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-deep-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-deep-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Wine": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-wine-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-wine-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-wine-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-wine-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Army Green": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-army-green-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-army-green-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-army-green-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-army-green-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Cream": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-cream-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-cream-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-cream-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-cream-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Purple": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-purple-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-purple-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-purple-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-purple-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Navy": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-navy-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-navy-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-navy-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-navy-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      },
+      "Red": {
+        "front": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-red-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-red-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35%] top-[28%] h-[240px] w-[170px]",
+            "export": {
+              "x": 360,
+              "y": 330,
+              "width": 240,
+              "height": 315
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-red-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/sleeveless-t-shirts-red-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[36%] top-[23%] h-[310px] w-[175px]",
+            "export": {
+              "x": 374,
+              "y": 270,
+              "width": 225,
+              "height": 410
+            }
+          }
+        }
+      }
+    },
+    "Polo Shirts": {
+      "Black": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-black-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-black-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-black-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-black-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "White": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-white-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-white-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-white-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-white-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Deep Ash": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-deep-ash-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-deep-ash-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-deep-ash-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-deep-ash-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Wine": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-wine-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-wine-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-wine-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-wine-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Army Green": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-army-green-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-army-green-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-army-green-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-army-green-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Cream": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-cream-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-cream-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-cream-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-cream-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Purple": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-purple-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-purple-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-purple-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-purple-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Navy": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-navy-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-navy-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-navy-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-navy-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      },
+      "Red": {
+        "front": {
+          "src": "/custom-studio-mockups/polo-shirts-red-front.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "back": {
+          "src": "/custom-studio-mockups/polo-shirts-red-back.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[35.5%] top-[26%] h-[270px] w-[190px]",
+            "export": {
+              "x": 344,
+              "y": 310,
+              "width": 272,
+              "height": 350
+            }
+          }
+        },
+        "left-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-red-left-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        },
+        "right-sleeve": {
+          "src": "/custom-studio-mockups/polo-shirts-red-right-sleeve.png",
+          "objectPosition": "center",
+          "printArea": {
+            "desktop": "left-[38%] top-[24%] h-[300px] w-[150px]",
+            "export": {
+              "x": 390,
+              "y": 285,
+              "width": 190,
+              "height": 380
+            }
+          }
+        }
+      }
+    }
+  }
+}

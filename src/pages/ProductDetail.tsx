@@ -14,6 +14,9 @@ const colorNames: Record<string, string> = {
   "#722F37": "Wine",
   "#4B5320": "Army Green",
   "#F5F5DC": "Cream",
+  "#FF5F7D": "Pink",
+  "#FFD400": "Yellow",
+  "#6D3FD1": "Purple",
 };
 
 function AccordionItem({ title, content }: { title: string; content: string }) {
@@ -324,7 +327,7 @@ export default function ProductPage() {
           <div className="lg:col-span-7 flex flex-col-reverse lg:flex-row gap-4">
             {/* Thumbnails */}
             {product.images && product.images.length > 1 && (
-              <div className="grid grid-flow-col auto-cols-max grid-rows-7 gap-3 overflow-x-auto overflow-y-hidden no-scrollbar scroll-smooth py-1 lg:max-w-[180px]">
+              <div className="grid grid-flow-col auto-cols-max grid-rows-7 gap-3 overflow-x-auto overflow-y-hidden no-scrollbar scroll-smooth py-1 lg:w-[184px] lg:max-w-[184px] lg:shrink-0 lg:gap-2">
                 {product.images.map((img, idx) => {
                   const linkedVariant = usesImageDesignSelection ? `Design ${idx + 1}` : product.colors[idx];
                   const isVariantSelected = Boolean(linkedVariant && selectedVariants.includes(linkedVariant));
@@ -340,7 +343,7 @@ export default function ProductPage() {
                         setActiveImageIndex(idx);
                       }}
                       title={linkedVariant || `View ${idx + 1}`}
-                      className={`relative flex-shrink-0 w-16 h-20 bg-secondary overflow-hidden transition-all duration-300 rounded-sm ${
+                      className={`relative flex-shrink-0 w-16 h-20 bg-secondary overflow-hidden transition-all duration-300 rounded-sm lg:h-[72px] lg:w-14 ${
                         isActive
                           ? "ring-2 ring-foreground opacity-100 scale-105"
                           : "opacity-50 hover:opacity-90"

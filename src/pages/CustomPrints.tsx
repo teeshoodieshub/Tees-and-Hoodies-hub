@@ -188,7 +188,7 @@ export default function CustomPrints() {
             <p className="text-muted-foreground text-sm max-w-md mx-auto leading-relaxed mb-8">
               Thank you for your custom print order. Your order details have been
               received. Our team will review your request and get back to you
-              within 24 hours with a quote and production timeline.
+              within 24 hours with a quote, 50% deposit request, and production timeline.
             </p>
             <button
               onClick={() => {

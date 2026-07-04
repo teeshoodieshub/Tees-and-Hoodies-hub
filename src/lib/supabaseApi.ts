@@ -386,6 +386,44 @@ export async function clearCartRemote(cartId: string): Promise<void> {
   await supabase.from("cart_items").delete().eq("cart_id", cartId);
 }
 
+async function sendOrderReceivedNotification(
+  orderId: string,
+  items: Array<{ product: Product; size: string; color: string; quantity: number }>,
+  total: number,
+  shippingDetails: {
+    customer_name: string;
+    phone_number: string;
+    email: string;
+    shipping_address: string;
+    shipping_city: string;
+    payment_method: string;
+    payment_network?: string;
+    payment_status?: string;
+  }
+) {
+  const { error } = await supabase.functions.invoke("notify-order", {
+    body: {
+      orderType: "store",
+      record: {
+        id: orderId,
+        total,
+        ...shippingDetails,
+        order_items: items.map((item) => ({
+          product_name: item.product.name,
+          size: item.size,
+          color: item.color,
+          quantity: item.quantity,
+          unit_price: item.product.price,
+        })),
+      },
+    },
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
 export async function createOrder(
   cartId: string | null,
   items: Array<{ product: Product; size: string; color: string; quantity: number }>,
@@ -398,13 +436,15 @@ export async function createOrder(
     shipping_city: string;
     payment_method: string;
     payment_network?: string;
+    payment_status?: string;
   }
 ): Promise<string | null> {
+  const { payment_status, ...orderShippingDetails } = shippingDetails;
   const orderPayload = {
     total,
     status: "pending",
-    ...shippingDetails,
-    payment_status: "pending",
+    ...orderShippingDetails,
+    payment_status: payment_status ?? "pending",
     ...(isUuid(cartId) ? { cart_id: cartId } : {}),
   };
 
@@ -432,6 +472,15 @@ export async function createOrder(
   if (itemsError) {
     console.error("Error creating order items:", itemsError);
     return null;
+  }
+
+  try {
+    await sendOrderReceivedNotification(data.id as string, items, total, {
+      ...shippingDetails,
+      payment_status: payment_status ?? "pending",
+    });
+  } catch (notificationError) {
+    console.error("Order notification failed:", notificationError);
   }
 
   return data.id as string;
@@ -649,6 +698,38 @@ export async function updateCustomOrderStatus(id: string, status: string): Promi
     customerName: currentOrder?.customer_name,
     customerEmail: currentOrder?.email,
   });
+}
+
+function getDesignUploadPath(fileRef: string): string {
+  try {
+    const url = new URL(fileRef);
+    const markers = [
+      "/storage/v1/object/public/design_uploads/",
+      "/storage/v1/object/sign/design_uploads/",
+      "/storage/v1/object/authenticated/design_uploads/",
+    ];
+    const marker = markers.find((item) => url.pathname.includes(item));
+    if (!marker) return fileRef;
+    const encodedPath = url.pathname.slice(url.pathname.indexOf(marker) + marker.length);
+    return decodeURIComponent(encodedPath);
+  } catch {
+    return fileRef;
+  }
+}
+
+export async function createDesignFileDownloadUrl(fileRef: string): Promise<string> {
+  const filePath = getDesignUploadPath(fileRef);
+  if (/^https?:\/\//i.test(filePath)) return filePath;
+
+  const { data, error } = await supabase.storage
+    .from("design_uploads")
+    .createSignedUrl(filePath, 60 * 60);
+
+  if (error || !data?.signedUrl) {
+    throw error || new Error("Failed to create design download link");
+  }
+
+  return data.signedUrl;
 }
 
 export async function uploadProductImage(file: File): Promise<string> {

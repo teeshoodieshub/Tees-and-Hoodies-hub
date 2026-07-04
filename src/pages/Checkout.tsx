@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronLeft, Loader2, ShoppingBag } from "lucide-react";
+import { CheckCircle2, ChevronLeft, Loader2, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import {
   createOrder,
@@ -25,10 +25,12 @@ import {
   type PaymentSubmissionPreview,
 } from "@/components/PaymentScreens";
 import {
+  formatOrderCode,
   persistSubmittedPayment,
   readSubmittedPayment,
   type SubmittedPayment,
 } from "@/lib/paymentSession";
+import type { CartItem } from "@/context/CartContext";
 
 const NETWORKS = [
   { id: "mtn", name: "MTN", value: "MTN" },
@@ -46,6 +48,18 @@ type CheckoutError = Error & {
     json?: (() => Promise<CheckoutErrorContextBody>) | CheckoutErrorContextBody;
   };
 };
+
+type CheckoutPaymentMode = "mobile_money" | "pay_on_delivery";
+
+const CUSTOM_PRINT_DEPOSIT_RATIO = 0.5;
+
+function requiresCustomization(item: CartItem) {
+  const category = item.product.category.toLowerCase();
+  const id = item.product.id.toLowerCase();
+  const name = item.product.name.toLowerCase();
+
+  return [category, id, name].some((value) => value.includes("custom"));
+}
 
 function normalizePhoneNumber(phone: string) {
   const digits = phone.replace(/\D/g, "");
@@ -66,6 +80,7 @@ export default function Checkout() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [submissionPreview, setSubmissionPreview] = useState<PaymentSubmissionPreview | null>(null);
+  const [deliveryOrderCode, setDeliveryOrderCode] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     customer_name: "",
@@ -76,12 +91,56 @@ export default function Checkout() {
     payment_network: NETWORKS[0].value,
   });
 
+  const hasCustomPrintItems = items.some(requiresCustomization);
+  const amountDueNow = hasCustomPrintItems
+    ? Number((totalPrice * CUSTOM_PRINT_DEPOSIT_RATIO).toFixed(2))
+    : totalPrice;
+  const remainingBalance = Math.max(0, totalPrice - amountDueNow);
+
   if (!submissionPreview && readSubmittedPayment()) {
     return <Navigate to="/payment-status" replace />;
   }
 
   if (submissionPreview) {
     return <PaymentSubmissionScreen payment={submissionPreview} />;
+  }
+
+  if (deliveryOrderCode) {
+    return (
+      <div className="container max-w-3xl mx-auto px-4 py-16 pt-28">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="border border-border bg-secondary/20 px-6 py-12 text-center md:px-12"
+        >
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
+            <CheckCircle2 className="h-8 w-8" strokeWidth={1.8} />
+          </div>
+          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            Pay On Delivery
+          </p>
+          <h1 className="mt-3 text-3xl font-semibold uppercase tracking-[0.14em]">
+            Order placed
+          </h1>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-6 text-muted-foreground">
+            Order {deliveryOrderCode} has been received. We will contact you to confirm delivery,
+            and payment will be collected when the order arrives.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button onClick={() => navigate("/shop")} className="rounded-none uppercase tracking-[0.18em]">
+              Continue Shopping
+            </Button>
+            <Button
+              onClick={() => setDeliveryOrderCode(null)}
+              variant="outline"
+              className="rounded-none uppercase tracking-[0.18em]"
+            >
+              View Checkout
+            </Button>
+          </div>
+        </motion.div>
+      </div>
+    );
   }
 
   if (items.length === 0) {
@@ -104,26 +163,62 @@ export default function Checkout() {
     setFormData({ ...formData, payment_network: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const validateCheckoutDetails = (paymentMode: CheckoutPaymentMode) => {
+    const requiredFields = [
+      formData.customer_name,
+      formData.email,
+      formData.phone_number,
+      formData.shipping_address,
+      formData.shipping_city,
+    ];
+
+    if (requiredFields.some((value) => !value.trim())) {
+      toast({
+        title: "Missing Order Details",
+        description: "Please complete your contact and delivery details.",
+        variant: "destructive",
+      });
+      return null;
+    }
 
     const normalizedPhone = normalizePhoneNumber(formData.phone_number);
 
     if (normalizedPhone.length < 12) {
       toast({
         title: "Invalid Phone Number",
-        description: "Please enter a valid mobile money number.",
+        description:
+          paymentMode === "pay_on_delivery"
+            ? "Please enter a valid delivery phone number."
+            : "Please enter a valid mobile money number.",
+        variant: "destructive",
+      });
+      return null;
+    }
+
+    return normalizedPhone;
+  };
+
+  const submitCheckout = async (paymentMode: CheckoutPaymentMode) => {
+    if (paymentMode === "pay_on_delivery" && hasCustomPrintItems) {
+      toast({
+        title: "Deposit Required",
+        description: "Custom printing orders require a 50% mobile money deposit before work begins.",
         variant: "destructive",
       });
       return;
     }
 
+    const normalizedPhone = validateCheckoutDetails(paymentMode);
+    if (!normalizedPhone) return;
+
     setLoading(true);
-    setSubmissionPreview({
-      amount: totalPrice,
-      network: formData.payment_network,
-      phoneNumber: normalizedPhone,
-    });
+    if (paymentMode === "mobile_money") {
+      setSubmissionPreview({
+        amount: amountDueNow,
+        network: formData.payment_network,
+        phoneNumber: normalizedPhone,
+      });
+    }
 
     let orderId: string | null = null;
 
@@ -135,7 +230,14 @@ export default function Checkout() {
         {
           ...formData,
           phone_number: normalizedPhone,
-          payment_method: "Mobile Money",
+          payment_method:
+            paymentMode === "pay_on_delivery"
+              ? "Pay On Delivery"
+              : hasCustomPrintItems
+                ? "50% Mobile Money Deposit"
+                : "Mobile Money",
+          payment_network: paymentMode === "mobile_money" ? formData.payment_network : undefined,
+          payment_status: paymentMode === "pay_on_delivery" ? "pay_on_delivery" : "pending",
         }
       );
 
@@ -143,18 +245,31 @@ export default function Checkout() {
         throw new Error("Failed to create order");
       }
 
+      if (paymentMode === "pay_on_delivery") {
+        clearCart();
+        setDeliveryOrderCode(formatOrderCode(orderId));
+        toast({
+          title: "Order Placed",
+          description: "Your order has been placed. Payment will be collected on delivery.",
+        });
+        return;
+      }
+
       const paymentResult = await initiateDcmPayment(
         normalizedPhone,
-        totalPrice,
+        amountDueNow,
         formData.payment_network,
-        orderId
+        orderId,
+        hasCustomPrintItems
+          ? `50% deposit for order ${orderId.slice(0, 8).toUpperCase()}`
+          : undefined
       );
 
       const paymentOutcome = getDcmPaymentOutcome(paymentResult);
       await updateOrderPaymentState(orderId, paymentResult);
 
       const nextPayment: SubmittedPayment = {
-        amount: totalPrice,
+        amount: amountDueNow,
         network: formData.payment_network,
         orderId,
         paymentStatus: paymentOutcome.status,
@@ -215,6 +330,15 @@ export default function Checkout() {
       setLoading(false);
       setSubmissionPreview(null);
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submitCheckout("mobile_money");
+  };
+
+  const handlePayOnDelivery = async () => {
+    await submitCheckout("pay_on_delivery");
   };
 
   return (
@@ -298,8 +422,25 @@ export default function Checkout() {
 
             <div className="space-y-4 pt-4">
               <h2 className="text-xs uppercase tracking-[0.2em] font-medium text-muted-foreground pb-2 border-b">
-                Payment Details (Mobile Money)
+                {hasCustomPrintItems ? "Deposit Payment (Mobile Money)" : "Payment Details"}
               </h2>
+              <div className="border border-border bg-secondary/30 p-4 text-sm leading-6 text-muted-foreground">
+                {hasCustomPrintItems ? (
+                  <>
+                    Custom printing orders require a 50% deposit before work begins. Pay{" "}
+                    <span className="font-semibold text-foreground">
+                      GHC {amountDueNow.toFixed(2)}
+                    </span>{" "}
+                    now, then settle the remaining{" "}
+                    <span className="font-semibold text-foreground">
+                      GHC {remainingBalance.toFixed(2)}
+                    </span>{" "}
+                    after confirmation.
+                  </>
+                ) : (
+                  "Pay now with mobile money, or choose pay on delivery and settle the order when it arrives."
+                )}
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="payment_network">Network</Label>
@@ -320,7 +461,9 @@ export default function Checkout() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone_number">Account Number (Momo)</Label>
+                  <Label htmlFor="phone_number">
+                    {hasCustomPrintItems ? "Deposit Account Number (Momo)" : "Phone Number"}
+                  </Label>
                   <Input
                     id="phone_number"
                     placeholder="233XXXXXXXXX"
@@ -332,25 +475,48 @@ export default function Checkout() {
                 </div>
               </div>
               <p className="text-[11px] text-muted-foreground">
-                * Use the number registered for mobile money. Approval prompts can take up to 60
-                seconds.
+                * For mobile money payments, use the number registered for your wallet. Approval
+                prompts can take up to 60 seconds.
               </p>
             </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full h-14 bg-foreground text-primary-foreground text-sm uppercase tracking-[0.2em] font-medium transition-opacity hover:opacity-90 rounded-none shadow-none mt-8"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                `Pay GHC ${totalPrice.toFixed(2)}`
+            <div className="space-y-3 pt-2">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full h-14 bg-foreground text-primary-foreground text-sm uppercase tracking-[0.2em] font-medium transition-opacity hover:opacity-90 rounded-none shadow-none"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Processing...
+                  </>
+                ) : hasCustomPrintItems ? (
+                  `Pay 50% Deposit - GHC ${amountDueNow.toFixed(2)}`
+                ) : (
+                  `Pay Now - GHC ${amountDueNow.toFixed(2)}`
+                )}
+              </Button>
+
+              {!hasCustomPrintItems && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={loading}
+                  onClick={handlePayOnDelivery}
+                  className="w-full h-14 rounded-none text-sm font-medium uppercase tracking-[0.2em]"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Pay On Delivery"
+                  )}
+                </Button>
               )}
-            </Button>
+            </div>
           </form>
         </motion.div>
 
@@ -398,6 +564,18 @@ export default function Checkout() {
               <span>Total</span>
               <span>GHC {totalPrice.toFixed(2)}</span>
             </div>
+            {hasCustomPrintItems && (
+              <div className="space-y-3 border-t border-border pt-4 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Deposit due now</span>
+                  <span className="font-semibold">GHC {amountDueNow.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Remaining balance</span>
+                  <span className="font-medium">GHC {remainingBalance.toFixed(2)}</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

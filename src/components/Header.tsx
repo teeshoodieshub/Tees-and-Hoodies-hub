@@ -1,37 +1,60 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { Menu, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/shop", label: "Collections" },
-  { to: "/custom-studio", label: "Studio" },
-  { to: "/about", label: "About Us" },
-  { to: "/contact", label: "Contact Us" },
+  { to: "/shop", label: "Shop" },
+  { to: "/shop", label: "Categories" },
 ];
 
 export default function Header() {
   const { totalItems, setIsCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container flex flex-col items-center py-4">
-        <Link to="/" className="font-serif text-2xl md:text-3xl font-semibold tracking-wide mb-3 text-lift-hover">
-          TEES & HOODIES
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors ${
+        isHome
+          ? "border-white/10 bg-transparent text-white"
+          : "border-border bg-background/95 text-foreground backdrop-blur-sm"
+      }`}
+    >
+      <div className="container relative flex h-[72px] items-center justify-between">
+        <Link
+          to="/"
+          className={`font-sans text-xl md:text-2xl font-semibold tracking-tight text-lift-hover ${
+            isHome ? "text-white" : "text-foreground"
+          }`}
+        >
+          <span
+            className={`mr-1 rounded-[6px] px-2 py-1 ${
+              isHome ? "bg-white/90 text-[#765343]" : "bg-foreground text-background"
+            }`}
+          >
+            TEES
+          </span>
+          <span className={isHome ? "text-white" : "text-foreground"}>&amp; HOODIES</span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-3">
           {navLinks.map((link) => (
             <Link
-              key={link.to}
-              to={link.to}
-              className={`text-[11px] uppercase tracking-[0.2em] transition-colors hover:text-foreground link-underline-fx ${
-                location.pathname === link.to ? "text-foreground font-medium" : "text-muted-foreground"
+              key={link.label}
+              to={link.label === "Categories" ? "/shop#categories" : link.to}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                location.pathname === link.to && link.label !== "Categories"
+                  ? isHome
+                    ? "bg-white/90 text-[#111111]"
+                    : "bg-foreground text-background"
+                  : isHome
+                    ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                    : "border border-border bg-background text-muted-foreground hover:text-foreground"
               }`}
             >
               {link.label}
@@ -40,10 +63,25 @@ export default function Header() {
         </nav>
 
         {/* Cart + Mobile toggle */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
+        <div className="flex items-center gap-3">
+          <Link
+            to="/about"
+            className={`hidden h-10 w-10 items-center justify-center rounded-full border md:inline-flex ${
+              isHome
+                ? "border-white/50 bg-white/10 text-white"
+                : "border-border bg-background text-foreground"
+            }`}
+            aria-label="Account"
+          >
+            <User className="h-5 w-5" strokeWidth={1.6} />
+          </Link>
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2 transition-opacity hover:opacity-70"
+            className={`relative flex h-10 w-10 items-center justify-center rounded-full border transition-opacity hover:opacity-75 ${
+              isHome
+                ? "border-white/50 bg-white/10 text-white"
+                : "border-border bg-background text-foreground"
+            }`}
             aria-label="Open cart"
           >
             <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
@@ -54,7 +92,11 @@ export default function Header() {
             )}
           </button>
           <button
-            className="md:hidden p-2"
+            className={`flex h-10 w-10 items-center justify-center rounded-full border md:hidden ${
+              isHome
+                ? "border-white/50 bg-white/10 text-white"
+                : "border-border bg-background text-foreground"
+            }`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
@@ -71,15 +113,17 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden bg-background border-t border-border"
+            className={`md:hidden overflow-hidden border-t ${
+              isHome ? "border-white/10 bg-[#2c231f]/95 text-white" : "border-border bg-background"
+            }`}
           >
             <div className="container py-6 flex flex-col items-center gap-4">
               {navLinks.map((link) => (
                 <Link
-                  key={link.to}
-                  to={link.to}
+                  key={link.label}
+                  to={link.label === "Categories" ? "/shop#categories" : link.to}
                   onClick={() => setMobileOpen(false)}
-                  className="text-[11px] uppercase tracking-[0.2em] py-2 text-muted-foreground hover:text-foreground link-underline-fx"
+                  className={isHome ? "py-2 text-sm font-medium text-white/80 hover:text-white" : "py-2 text-sm font-medium text-muted-foreground hover:text-foreground"}
                 >
                   {link.label}
                 </Link>

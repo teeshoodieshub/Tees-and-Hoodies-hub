@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowLeft, ArrowRight, Printer, Shirt, Palette, CheckCircle2, ShieldCheck, Truck, Sparkles, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Printer, Shirt, Palette, CheckCircle2, ShieldCheck, Truck, Sparkles, Star } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { useProducts } from "@/hooks/use-products";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -113,6 +113,14 @@ const testimonials = [
   },
 ];
 
+const heroQuickCategories = [
+  { label: "Premium Hoodies", to: "/shop?category=hoodies", wide: true },
+  { label: "Heavyweight Tees", to: "/shop?category=t-shirts", wide: true },
+  { label: "Custom Prints", to: "/custom-prints" },
+  { label: "Studio Mockups", to: "/custom-studio" },
+  { label: "Shop All", to: "/shop" },
+];
+
 export default function HomePage() {
   const { data: products = [] } = useProducts();
   const { data: dbCategories = [] } = useQuery({
@@ -126,18 +134,12 @@ export default function HomePage() {
     staleTime: 5 * 60 * 1000,
   });
   const featured = products.filter((product) => product.isFeatured).slice(0, 4);
-  const heroSectionRef = useRef<HTMLElement | null>(null);
   const categoryScrollerRef = useRef<HTMLDivElement | null>(null);
   const [heroApi, setHeroApi] = useState<CarouselApi>();
-  const [activeSlide, setActiveSlide] = useState(0);
   const [isCategoryScrollerPaused, setIsCategoryScrollerPaused] = useState(false);
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: heroSectionRef,
-    offset: ["start start", "end start"],
-  });
-  const heroImageY = useTransform(heroScrollProgress, [0, 1], ["0%", "14%"]);
-  const heroOverlayOpacity = useTransform(heroScrollProgress, [0, 1], [1, 0.72]);
   const heroImageUrls = heroImages.length > 0 ? heroImages.map((image) => image.image_url) : defaultHeroImageUrls;
+  const storyImageUrl = heroImageUrls[1] || defaultHeroImageUrls[0];
+  const serviceImageUrls = services.map((_, index) => heroImageUrls[index % heroImageUrls.length] || defaultHeroImageUrls[index % defaultHeroImageUrls.length]);
   const heroSlides = heroImageUrls.map((image, index) => ({
     image,
     ...heroContentPresets[index % heroContentPresets.length],
@@ -151,25 +153,6 @@ export default function HomePage() {
     };
   });
   const loopingCategoryPanels = categoryPanels.length > 1 ? [...categoryPanels, ...categoryPanels] : categoryPanels;
-
-  useEffect(() => {
-    if (!heroApi) {
-      return;
-    }
-
-    const onSelect = () => {
-      setActiveSlide(heroApi.selectedScrollSnap());
-    };
-
-    onSelect();
-    heroApi.on("select", onSelect);
-    heroApi.on("reInit", onSelect);
-
-    return () => {
-      heroApi.off("select", onSelect);
-      heroApi.off("reInit", onSelect);
-    };
-  }, [heroApi]);
 
   useEffect(() => {
     const scroller = categoryScrollerRef.current;
@@ -247,95 +230,51 @@ export default function HomePage() {
         ]}
       />
       {/* Hero */}
-      <section ref={heroSectionRef} className="relative overflow-hidden h-[100svh]">
+      <section className="relative overflow-hidden min-h-[100svh] bg-foreground">
         <Carousel setApi={setHeroApi} opts={{ loop: true }} className="h-full">
           <CarouselContent className="ml-0 h-full">
             {heroSlides.map((slide, index) => (
-              <CarouselItem key={slide.title} className="pl-0">
-                <div className="relative h-[100svh] flex items-center">
+              <CarouselItem key={`${slide.title}-${index}-${slide.image}`} className="pl-0">
+                <div className="relative min-h-[100svh]">
                   <motion.img
                     src={slide.image}
                     alt={`${slide.title} ${slide.accent}`}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ y: heroImageY }}
+                    className="absolute inset-0 h-full w-full scale-105 object-cover"
                   />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/40 to-foreground/15"
-                    style={{ opacity: heroOverlayOpacity }}
+                  <div
+                    className="absolute inset-0 bg-[linear-gradient(90deg,rgba(32,20,18,0.84)_0%,rgba(79,43,33,0.56)_44%,rgba(30,117,125,0.48)_100%)]"
                   />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-transparent to-transparent"
-                    style={{ opacity: heroOverlayOpacity }}
+                  <div
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_68%_45%,rgba(255,255,255,0.12),transparent_32%),linear-gradient(180deg,rgba(0,0,0,0.16)_0%,rgba(0,0,0,0.08)_36%,rgba(0,0,0,0.46)_100%)]"
                   />
-                  <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(hsl(var(--primary-foreground)/0.1)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--primary-foreground)/0.1)_1px,transparent_1px)] [background-size:44px_44px]" />
-                  <motion.div
-                    aria-hidden="true"
-                    className="absolute -top-24 -left-12 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
-                    animate={{ x: [0, 16, -8, 0], y: [0, -14, 10, 0] }}
-                    transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <motion.div
-                    aria-hidden="true"
-                    className="absolute bottom-8 right-12 h-44 w-44 rounded-full bg-primary-foreground/10 blur-3xl"
-                    animate={{ x: [0, -18, 10, 0], y: [0, 12, -8, 0] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                  />
+                  <div className="absolute inset-x-0 top-[72px] h-px bg-white/10" />
 
-                  <div className="relative container py-20 md:py-28 text-primary-foreground z-10">
-                    <div className="grid md:grid-cols-12 gap-8 items-end">
-                      <motion.div {...fadeInUp} className="md:col-span-7">
-                        <p className="technical-label text-primary-foreground/80 mb-3 md:mb-4 text-[10px] sm:text-[11px]">{slide.label}</p>
-                        <h1 className="font-serif font-semibold leading-[0.95] tracking-wide text-[2.1rem] sm:text-[2.5rem] md:text-[clamp(2.7rem,6.5vw,5.6rem)] text-gradient-animated text-glow-soft">
-                          {slide.title}
-                          <br />
-                          <span className="italic">{slide.accent}</span>
+                  <div className="relative z-10 container min-h-[100svh] pb-8 pt-24 text-white md:pt-28">
+                    <div className="flex min-h-[calc(100svh-8rem)] flex-col justify-center">
+                      <motion.div {...fadeInUp} className="max-w-[980px]">
+                        <h1 className="font-sans text-[2.75rem] font-normal leading-[0.98] tracking-normal sm:text-[3.9rem] md:text-[clamp(4rem,4.8vw,5.35rem)]">
+                          Elevate your fit with soft heavyweight essentials.
                         </h1>
-                        <p className="mt-4 md:mt-5 text-primary-foreground/80 max-w-lg text-sm md:text-lg leading-relaxed">
-                          {slide.description}
+                        <p className="mt-5 max-w-[620px] text-lg font-medium leading-snug text-white/92 md:text-2xl">
+                          Premium tees, hoodies, and custom prints made to keep your everyday rotation clean.
                         </p>
-                        <div className="mt-7 md:mt-9 flex flex-wrap items-center gap-3 md:gap-4">
-                          <Link
-                            to="/shop"
-                            className="inline-flex items-center gap-2 h-11 px-5 bg-accent text-accent-foreground text-xs uppercase tracking-[0.16em] font-medium hover:opacity-90 transition-opacity"
-                          >
-                            Shop Drop <ArrowRight className="w-4 h-4" />
-                          </Link>
-                          <Link
-                            to="/about"
-                            className="hidden sm:inline-flex items-center gap-2 text-xs md:text-sm uppercase tracking-[0.15em] text-primary-foreground border-b border-primary-foreground/40 pb-1 hover:border-primary-foreground transition-colors link-underline-fx"
-                          >
-                            Our Craft
-                          </Link>
-                        </div>
-                        <div className="mt-8 hidden md:flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.16em]">
-                          <span className="px-3 py-1.5 border border-primary-foreground/25 bg-primary-foreground/5">450-500 GSM Cotton</span>
-                          <span className="px-3 py-1.5 border border-primary-foreground/25 bg-primary-foreground/5">Relaxed Street Fit</span>
-                          <span className="px-3 py-1.5 border border-primary-foreground/25 bg-primary-foreground/5">Made In Ghana</span>
-                        </div>
                       </motion.div>
 
-                      <motion.div {...fadeInUp} className="hidden md:block md:col-span-5 md:justify-self-end w-full md:max-w-sm">
-                        <div className="border border-primary-foreground/20 bg-foreground/25 backdrop-blur-sm p-6">
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-primary-foreground/70">Drop Notes</p>
-                          <h2 className="mt-3 font-serif text-3xl italic leading-none">{slide.dropName}</h2>
-                          <p className="mt-3 text-sm text-primary-foreground/75 leading-relaxed">
-                            Essentials cut for repeat wear, finished with heavyweight structure and soft hand-feel.
-                          </p>
-                          <div className="mt-6 pt-5 border-t border-primary-foreground/20 grid grid-cols-3 gap-3 text-center">
-                            <div>
-                              <p className="font-medium text-lg leading-none">03</p>
-                              <p className="text-[10px] uppercase tracking-[0.14em] text-primary-foreground/60 mt-1">Colorways</p>
-                            </div>
-                            <div>
-                              <p className="font-medium text-lg leading-none">08</p>
-                              <p className="text-[10px] uppercase tracking-[0.14em] text-primary-foreground/60 mt-1">Core Pieces</p>
-                            </div>
-                            <div>
-                              <p className="font-medium text-lg leading-none">01</p>
-                              <p className="text-[10px] uppercase tracking-[0.14em] text-primary-foreground/60 mt-1">Statement Fit</p>
-                            </div>
-                          </div>
-                        </div>
+                      <motion.div
+                        {...fadeInUp}
+                        className="mt-8 grid max-w-[484px] grid-cols-2 gap-2 md:ml-auto md:mt-10 md:gap-4"
+                      >
+                        {heroQuickCategories.map((category) => (
+                          <Link
+                            key={category.label}
+                            to={category.to}
+                            className={`inline-flex h-10 items-center justify-center rounded-[14px] border border-white/20 bg-white/15 px-4 text-center text-[11px] font-extrabold uppercase leading-tight text-white shadow-lg shadow-black/10 backdrop-blur-sm transition-colors hover:bg-white/25 md:h-12 md:px-5 md:text-sm ${
+                              category.wide ? "md:min-w-[238px]" : ""
+                            }`}
+                          >
+                            {category.label}
+                          </Link>
+                        ))}
                       </motion.div>
                     </div>
                   </div>
@@ -344,36 +283,6 @@ export default function HomePage() {
             ))}
           </CarouselContent>
         </Carousel>
-
-        <div className="absolute z-20 bottom-6 right-4 md:right-8 flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => heroApi?.scrollPrev()}
-            className="h-10 w-10 border border-primary-foreground/35 bg-foreground/35 text-primary-foreground backdrop-blur-sm inline-flex items-center justify-center transition-colors hover:bg-foreground/55"
-            aria-label="Previous hero slide"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => heroApi?.scrollNext()}
-            className="h-10 w-10 border border-primary-foreground/35 bg-foreground/35 text-primary-foreground backdrop-blur-sm inline-flex items-center justify-center transition-colors hover:bg-foreground/55"
-            aria-label="Next hero slide"
-          >
-            <ArrowRight className="h-4 w-4" />
-          </button>
-          <div className="flex items-center gap-1.5 ml-2">
-            {heroSlides.map((slide, index) => (
-              <button
-                key={slide.title}
-                type="button"
-                onClick={() => heroApi?.scrollTo(index)}
-                className={`h-1.5 transition-all ${activeSlide === index ? "w-8 bg-primary-foreground" : "w-3 bg-primary-foreground/50"}`}
-                aria-label={`Go to hero slide ${index + 1}`}
-              />
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Featured Products */}
@@ -410,39 +319,72 @@ export default function HomePage() {
       )}
 
       {/* About strip */}
-      <section className="py-20 md:py-28 bg-secondary">
-        <div className="container max-w-3xl text-center">
-          <motion.div {...fadeInUp}>
-            <p className="technical-label mb-3">Our Story</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-medium italic mb-6 text-lift-hover">Crafted in West Africa</h2>
-            <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
-              Every piece is designed in Accra, for the world. We source 450-500GSM heavyweight cotton because we believe streetwear should feel as good as it looks.
-            </p>
-            <Link
-              to="/about"
-              className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-accent border-b border-accent/40 pb-1 hover:border-accent transition-colors link-underline-fx"
+      <section id="story" className="overflow-hidden py-20 md:py-28 bg-secondary">
+        <div className="container max-w-6xl">
+          <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+            <motion.div {...fadeInUp} className="text-center md:text-left">
+              <p className="technical-label mb-3">Our Story</p>
+              <h2 className="font-serif text-3xl md:text-5xl font-medium italic mb-6 text-lift-hover">Crafted in West Africa</h2>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto md:mx-0">
+                Every piece is designed in Accra, for the world. We source 450-500GSM heavyweight cotton because we believe streetwear should feel as good as it looks.
+              </p>
+              <Link
+                to="/about"
+                className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-accent border-b border-accent/40 pb-1 hover:border-accent transition-colors link-underline-fx"
+              >
+                Learn More <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 64 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              className="relative min-h-[320px] overflow-hidden md:min-h-[440px]"
             >
-              Learn More <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
+              <img
+                src={storyImageUrl}
+                alt="Tees and Hoodies streetwear from Accra"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/45 via-transparent to-transparent" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Services */}
-      <section className="py-20 md:py-28">
+      <section id="services" className="overflow-hidden py-20 md:py-28">
         <div className="container">
           <motion.div {...fadeInUp} className="text-center mb-14">
             <p className="technical-label mb-3">Our Services</p>
             <h2 className="font-serif text-3xl md:text-4xl font-medium italic text-lift-hover">Built For Brands And Everyday Wear</h2>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {services.map((service) => {
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+            {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <motion.div key={service.title} {...fadeInUp} className="border border-border p-6 bg-background/60">
-                  <Icon className="w-5 h-5 text-accent mb-4" />
-                  <h3 className="font-serif text-2xl italic mb-3">{service.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                <motion.div
+                  key={service.title}
+                  initial={{ opacity: 0, x: 120 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.28 }}
+                  transition={{ duration: 0.7, delay: index * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                  className="group relative min-h-[340px] overflow-hidden border border-border bg-foreground text-primary-foreground md:min-h-[470px]"
+                >
+                  <img
+                    src={serviceImageUrls[index]}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/88 via-foreground/42 to-foreground/8" />
+                  <div className="relative z-10 flex h-full min-h-[340px] flex-col justify-end p-6 md:min-h-[470px] md:p-8">
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full border border-primary-foreground/35 bg-primary-foreground/10 backdrop-blur-sm">
+                      <Icon className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <h3 className="font-serif text-3xl italic mb-4 md:text-4xl">{service.title}</h3>
+                    <p className="text-sm text-primary-foreground/82 leading-relaxed md:text-base">{service.description}</p>
+                  </div>
                 </motion.div>
               );
             })}
@@ -556,7 +498,7 @@ export default function HomePage() {
 
       {/* Category Spotlight */}
       {categoryPanels.length > 0 && (
-        <section className="py-4 md:py-6">
+        <section id="categories" className="py-4 md:py-6">
           <div className="px-2 md:px-4">
             <motion.div {...fadeInUp} className="mb-4 md:mb-5 px-2 md:px-0">
               <p className="technical-label mb-2">Shop By Category</p>

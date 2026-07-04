@@ -1,9 +1,44 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { listOrders, listCustomOrders, updateCustomOrderStatus, updateOrderStatus } from "@/lib/supabaseApi";
+import {
+  createDesignFileDownloadUrl,
+  listOrders,
+  listCustomOrders,
+  updateCustomOrderStatus,
+  updateOrderStatus,
+} from "@/lib/supabaseApi";
 import { toast } from "sonner";
 import { Download, Loader2, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+function DesignDownloadButton({ fileRef }: { fileRef: string }) {
+  const [isPreparing, setIsPreparing] = useState(false);
+
+  const handleDownload = async () => {
+    setIsPreparing(true);
+    try {
+      const url = await createDesignFileDownloadUrl(fileRef);
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Could not create download link";
+      toast.error(message);
+    } finally {
+      setIsPreparing(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleDownload}
+      disabled={isPreparing}
+      className="flex items-center justify-center gap-2 w-full h-10 bg-foreground text-background hover:bg-foreground/90 transition-colors text-xs font-bold uppercase tracking-wider disabled:opacity-60"
+    >
+      {isPreparing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+      {isPreparing ? "Preparing" : "Download Design"}
+    </button>
+  );
+}
 
 export default function AdminOrders() {
   const queryClient = useQueryClient();
@@ -40,8 +75,9 @@ export default function AdminOrders() {
       }
       toast.success(`Order status updated (${result.emailSkippedReason || "email not sent"})`);
     },
-    onError: (error: any) => {
-      toast.error(`Failed to update status: ${error.message || "Unknown error"}`);
+    onError: (error: unknown) => {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      toast.error(`Failed to update status: ${message}`);
     }
   });
 
@@ -358,15 +394,7 @@ export default function AdminOrders() {
                               </div>
 
                               {order.design_file_url && (
-                                <a 
-                                  href={order.design_file_url} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="flex items-center justify-center gap-2 w-full h-10 bg-foreground text-background hover:bg-foreground/90 transition-colors text-xs font-bold uppercase tracking-wider"
-                                >
-                                  <Download className="w-3.5 h-3.5" />
-                                  Download Design
-                                </a>
+                                <DesignDownloadButton fileRef={order.design_file_url} />
                               )}
                             </div>
                             
