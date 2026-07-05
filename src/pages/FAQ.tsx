@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import SEOHead from "@/components/SEOHead";
+import { createBreadcrumbSchema, createFaqSchema } from "@/lib/seo";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 12 },
@@ -43,15 +44,13 @@ export default function FAQPage() {
         title="FAQ"
         description="Frequently asked questions about Tees & Hoodies Hub. Learn about order tracking, exchanges, sizing, care instructions, and more."
         canonical="/faq"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": faqs.map((faq) => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
-          }))
-        }}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "FAQ", path: "/faq" },
+          ]),
+          createFaqSchema(faqs),
+        ]}
       />
       <div className="container max-w-3xl">
         <motion.div {...fadeInUp} className="text-center">

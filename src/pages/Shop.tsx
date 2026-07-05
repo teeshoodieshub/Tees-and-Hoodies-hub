@@ -5,6 +5,7 @@ import { listCategories } from "@/lib/supabaseApi";
 import ProductCard from "@/components/ProductCard";
 import { useProducts } from "@/hooks/use-products";
 import SEOHead from "@/components/SEOHead";
+import { createBreadcrumbSchema, createItemListSchema } from "@/lib/seo";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 12 },
@@ -32,6 +33,13 @@ export default function ShopPage() {
         title="Shop Collection"
         description="Browse our full collection of premium heavyweight tees, hoodies, and sleeveless cuts. 450-500 GSM cotton, relaxed street fit, made in Ghana. Shop by category and find your perfect piece."
         canonical="/shop"
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Shop", path: "/shop" },
+          ]),
+          createItemListSchema(filtered),
+        ]}
       />
       <div className="container">
         <motion.div {...fadeInUp} className="text-center mb-14">

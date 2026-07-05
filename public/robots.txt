@@ -14,9 +14,40 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /checkout
 
 Sitemap: https://teesandhoodies.com/sitemap.xml
+Host: https://teesandhoodies.com

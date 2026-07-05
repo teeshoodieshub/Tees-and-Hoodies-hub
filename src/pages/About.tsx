@@ -13,7 +13,7 @@ export default function AboutPage() {
     <main className="pt-12 pb-16">
       <SEOHead
         title="About Us"
-        description="Tees & Hoodies Hub was born in the creative heart of Accra — Osu. We craft 450-500 GSM heavyweight streetwear inspired by West African culture. Founded in 2023, designed in Accra for the world."
+        description="Tees & Hoodies Hub was born in the creative heart of Accra — Osu. We craft 450-500 GSM heavyweight apparel inspired by West African culture. Founded in 2023, designed in Accra for the world."
         canonical="/about"
       />
       <div className="container max-w-3xl">
@@ -26,10 +26,10 @@ export default function AboutPage() {
 
         <motion.div {...fadeInUp} className="mt-14 space-y-6 text-muted-foreground leading-relaxed">
           <p>
-            Tees & Hoodies was born in the creative heart of Accra — Osu. What started as a passion project between friends who couldn't find heavyweight streetwear that matched their style has grown into a movement.
+            Tees & Hoodies was born in the creative heart of Accra — Osu. What started as a passion project between friends who couldn't find heavyweight apparel that matched their style has grown into a movement.
           </p>
           <p>
-            Every piece is designed in Accra, for Accra. We source 450–500GSM heavyweight cotton because we believe streetwear should feel as good as it looks. Our oversized silhouettes are engineered for the tropical heat without compromising on the drop-shoulder, relaxed fits that define modern street fashion.
+            Every piece is designed in Accra, for Accra. We source 450–500GSM heavyweight cotton because we believe apparel should feel as good as it looks. Our oversized silhouettes are engineered for the tropical heat without compromising on the drop-shoulder, relaxed fits that define modern street fashion.
           </p>
           <p>
             We don't chase trends. We study the textures of our city — the concrete walls of Jamestown, the red earth of Madina, the high-sun shadows of Oxford Street — and translate them into garments that tell our story.
@@ -52,7 +52,7 @@ export default function AboutPage() {
         <motion.div {...fadeInUp} className="mt-16 p-8 bg-foreground text-primary-foreground text-center">
           <p className="text-[11px] uppercase tracking-[0.2em] text-primary-foreground/40 mb-4">Our Mission</p>
           <p className="font-serif text-lg md:text-2xl font-medium italic leading-relaxed">
-            "To prove that world-class streetwear can be born anywhere — starting with Accra."
+            "To prove that world-class apparel can be born anywhere — starting with Accra."
           </p>
         </motion.div>
       </div>

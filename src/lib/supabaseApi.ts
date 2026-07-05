@@ -4,6 +4,7 @@ import {
   type DcmPaymentResult,
 } from "@/lib/dcmPayment";
 import type { Product } from "@/data/products";
+import staticBlogPosts from "@/data/blogPosts.json";
 
 export { getDcmPaymentOutcome } from "@/lib/dcmPayment";
 
@@ -37,6 +38,43 @@ export type DbHeroImage = {
   image_url: string;
   sort_order: number;
   created_at: string;
+};
+
+export type DbBlogPost = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  cover_image_url: string | null;
+  author_name: string;
+  is_published: boolean;
+  published_at: string | null;
+  seo_title: string | null;
+  seo_description: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type BlogPostInput = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  cover_image_url?: string | null;
+  author_name: string;
+  is_published: boolean;
+  published_at?: string | null;
+  seo_title?: string | null;
+  seo_description?: string | null;
+};
+
+export type ContactMessageInput = {
+  name: string;
+  email: string;
+  phone?: string;
+  subject?: string;
+  message: string;
 };
 
 export type DbCartItem = {
@@ -145,11 +183,16 @@ const mapDbProduct = (row: DbProduct): Product => ({
   useDesignSelection: row.use_design_selection ?? false,
   colors: row.colors,
   sizes: row.sizes,
-  description: row.description,
-  specs: row.specs,
+  description: normalizeApparelCopy(row.description),
+  specs: normalizeApparelCopy(row.specs),
   isNew: row.is_new ?? false,
   isFeatured: row.is_featured ?? false,
 });
+
+function normalizeApparelCopy(value: string) {
+  const legacyTerm = new RegExp("street" + "wear", "gi");
+  return value.replace(legacyTerm, (match) => (match[0] === match[0].toUpperCase() ? "Apparel" : "apparel"));
+}
 
 const mapProductToDb = (product: Product): DbProduct => ({
   id: product.id,
@@ -330,6 +373,98 @@ export async function deleteHeroImage(id: string): Promise<void> {
   if (error) throw error;
 }
 
+export async function listPublishedBlogPosts(): Promise<DbBlogPost[]> {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("is_published", true)
+    .or(`published_at.is.null,published_at.lte.${new Date().toISOString()}`)
+    .order("published_at", { ascending: false, nullsFirst: false })
+    .order("created_at", { ascending: false });
+  return mergePublishedBlogPosts(error || !data ? [] : (data as DbBlogPost[]));
+}
+
+export async function getPublishedBlogPostBySlug(slug: string): Promise<DbBlogPost | null> {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .or(`published_at.is.null,published_at.lte.${new Date().toISOString()}`)
+    .maybeSingle();
+  if (!error && data) return data as DbBlogPost;
+  return getStaticPublishedBlogPosts().find((post) => post.slug === slug) || null;
+}
+
+export async function listBlogPostsAdmin(): Promise<DbBlogPost[]> {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return data as DbBlogPost[];
+}
+
+export async function createBlogPost(post: BlogPostInput): Promise<void> {
+  const { error } = await supabase.from("blog_posts").insert(normalizeBlogPostPayload(post));
+  if (error) throw error;
+}
+
+export async function updateBlogPost(id: string, post: BlogPostInput): Promise<void> {
+  const { error } = await supabase
+    .from("blog_posts")
+    .update(normalizeBlogPostPayload(post))
+    .eq("id", id);
+  if (error) throw error;
+}
+
+export async function deleteBlogPost(id: string): Promise<void> {
+  const { error } = await supabase.from("blog_posts").delete().eq("id", id);
+  if (error) throw error;
+}
+
+function normalizeBlogPostPayload(post: BlogPostInput) {
+  return {
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    content: post.content,
+    cover_image_url: post.cover_image_url || null,
+    author_name: post.author_name || "Tees & Hoodies Hub",
+    is_published: post.is_published,
+    published_at: post.is_published ? post.published_at || new Date().toISOString() : post.published_at || null,
+    seo_title: post.seo_title || null,
+    seo_description: post.seo_description || null,
+  };
+}
+
+function getStaticPublishedBlogPosts(): DbBlogPost[] {
+  const now = new Date().toISOString();
+  return (staticBlogPosts as DbBlogPost[])
+    .filter((post) => post.is_published && (!post.published_at || post.published_at <= now))
+    .sort((a, b) => {
+      const bDate = b.published_at || b.created_at || "";
+      const aDate = a.published_at || a.created_at || "";
+      return bDate.localeCompare(aDate);
+    });
+}
+
+function mergePublishedBlogPosts(posts: DbBlogPost[]): DbBlogPost[] {
+  const bySlug = new Map<string, DbBlogPost>();
+
+  [...posts, ...getStaticPublishedBlogPosts()].forEach((post) => {
+    if (!bySlug.has(post.slug)) {
+      bySlug.set(post.slug, post);
+    }
+  });
+
+  return Array.from(bySlug.values()).sort((a, b) => {
+    const bDate = b.published_at || b.created_at || "";
+    const aDate = a.published_at || a.created_at || "";
+    return bDate.localeCompare(aDate);
+  });
+}
+
 export async function getOrCreateCartId(): Promise<string> {
   const existing = localStorage.getItem(CART_ID_KEY);
   if (existing) return existing;
@@ -384,6 +519,16 @@ export async function setCartItemQuantity(
 
 export async function clearCartRemote(cartId: string): Promise<void> {
   await supabase.from("cart_items").delete().eq("cart_id", cartId);
+}
+
+export async function submitContactMessage(message: ContactMessageInput): Promise<void> {
+  const { error } = await supabase.functions.invoke("notify-contact", {
+    body: message,
+  });
+
+  if (error) {
+    throw error;
+  }
 }
 
 async function sendOrderReceivedNotification(

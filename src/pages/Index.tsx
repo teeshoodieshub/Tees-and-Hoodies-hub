@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Printer, Shirt, Palette, CheckCircle2, ShieldCheck, Truck, Sparkles, Star } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { useProducts } from "@/hooks/use-products";
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { listCategories, listHeroImages } from "@/lib/supabaseApi";
 import { defaultHeroImageUrls } from "@/lib/heroDefaults";
 import SEOHead from "@/components/SEOHead";
+import {
+  createFaqSchema,
+  createLocalBusinessSchema,
+  createOrganizationSchema,
+  createWebsiteSchema,
+} from "@/lib/seo";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 12 },
@@ -33,36 +38,12 @@ const staggerItem = {
   },
 };
 
-const heroContentPresets = [
-  {
-    label: "Accra Atelier - Premium Streetwear",
-    title: "Built For",
-    accent: "After Hours.",
-    description: "Boxy silhouettes, dense cotton, and clean lines tuned for city nights and everyday rotation.",
-    dropName: "Uniform 01",
-  },
-  {
-    label: "Heavyweight Program",
-    title: "Weight You",
-    accent: "Can Feel.",
-    description: "Structured hoodies cut to drape right - warm, substantial, and made for repeat wear.",
-    dropName: "Hoodie Focus",
-  },
-  {
-    label: "Limited Color Story",
-    title: "Colorways With",
-    accent: "Depth.",
-    description: "Muted earth tones and deep wine shades engineered to pair cleanly across the entire set.",
-    dropName: "Tone Pack",
-  },
-  {
-    label: "Core Essentials",
-    title: "Everyday Tees,",
-    accent: "Elevated.",
-    description: "Soft-hand finish, oversized block, and lasting collars that hold shape beyond the first wash.",
-    dropName: "Core Tees",
-  },
-];
+const scrollRevealItem = {
+  initial: { opacity: 0, y: 34, scale: 0.97 },
+  whileInView: { opacity: 1, y: 0, scale: 1 },
+  viewport: { once: true, amount: 0.22 },
+  transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
+};
 
 const services = [
   {
@@ -113,13 +94,88 @@ const testimonials = [
   },
 ];
 
-const heroQuickCategories = [
-  { label: "Premium Hoodies", to: "/shop?category=hoodies", wide: true },
-  { label: "Heavyweight Tees", to: "/shop?category=t-shirts", wide: true },
-  { label: "Custom Prints", to: "/custom-prints" },
-  { label: "Studio Mockups", to: "/custom-studio" },
-  { label: "Shop All", to: "/shop" },
+const answerEngineFaqs = [
+  {
+    question: "Where can I buy heavyweight hoodies and tees in Accra?",
+    answer:
+      "Tees & Hoodies Hub sells heavyweight tees, hoodies, sleeveless tops, and custom printed apparel from Accra, Ghana through teesandhoodies.com.",
+  },
+  {
+    question: "Does Tees & Hoodies Hub make custom merch for brands and events?",
+    answer:
+      "Yes. Customers can order custom printed tees, hoodies, polos, and sleeveless tops for brands, teams, events, and merch drops, with mockup support before production.",
+  },
+  {
+    question: "What fabric weight does Tees & Hoodies Hub use?",
+    answer:
+      "The brand focuses on premium heavyweight garments, including 450-500 GSM cotton options for structured apparel pieces.",
+  },
 ];
+
+const heroSlides = [
+  {
+    videoUrl: "/hero/magnific_animate-start-image_dIWwgSgXSL.mp4",
+    title: "Elevate your fit with soft heavyweight essentials.",
+    description: "Premium tees, hoodies, and custom prints made to keep your everyday rotation clean.",
+    label: "Essentials",
+  },
+  {
+    videoUrl: "/hero/magnific_animate-start-image_62wEJhjiJO.mp4",
+    title: "Create merch that moves like your brand.",
+    description: "Use our custom studio to preview designs, approve placement, and produce clean drops with confidence.",
+    label: "Studio",
+  },
+];
+
+const serviceImageOverrides = ["/services/plain-merch-fashion-portrait.png"];
+
+function TypewriterHeroTitle({
+  text,
+  reducedMotion,
+}: {
+  text: string;
+  reducedMotion: boolean;
+}) {
+  const [typedText, setTypedText] = useState(reducedMotion ? text : "");
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setTypedText(text);
+      return;
+    }
+
+    setTypedText("");
+    let index = 0;
+    const interval = window.setInterval(() => {
+      index += 1;
+      setTypedText(text.slice(0, index));
+
+      if (index >= text.length) {
+        window.clearInterval(interval);
+      }
+    }, 30);
+
+    return () => window.clearInterval(interval);
+  }, [text, reducedMotion]);
+
+  return (
+    <h1
+      className="font-sans text-[2.75rem] font-normal leading-[0.98] tracking-normal sm:text-[3.9rem] md:text-[clamp(4rem,4.8vw,5.35rem)]"
+      aria-label={text}
+    >
+      <span className="sr-only">{text}</span>
+      <span className="relative block" aria-hidden="true">
+        <span className="invisible">{text}</span>
+        <span className="absolute inset-0">
+          {typedText}
+          {!reducedMotion && typedText.length < text.length && (
+            <span className="ml-1 inline-block h-[0.82em] w-px translate-y-[0.08em] animate-pulse bg-current" />
+          )}
+        </span>
+      </span>
+    </h1>
+  );
+}
 
 export default function HomePage() {
   const { data: products = [] } = useProducts();
@@ -134,16 +190,22 @@ export default function HomePage() {
     staleTime: 5 * 60 * 1000,
   });
   const featured = products.filter((product) => product.isFeatured).slice(0, 4);
+  const heroRef = useRef<HTMLElement | null>(null);
   const categoryScrollerRef = useRef<HTMLDivElement | null>(null);
-  const [heroApi, setHeroApi] = useState<CarouselApi>();
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [isCategoryScrollerPaused, setIsCategoryScrollerPaused] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress: heroScrollProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroVideoY = useTransform(heroScrollProgress, [0, 1], ["0%", "14%"]);
+  const heroContentY = useTransform(heroScrollProgress, [0, 1], ["0%", "-9%"]);
+  const heroContentOpacity = useTransform(heroScrollProgress, [0, 0.75], [1, 0.82]);
   const heroImageUrls = heroImages.length > 0 ? heroImages.map((image) => image.image_url) : defaultHeroImageUrls;
+  const activeHero = heroSlides[activeHeroSlide];
   const storyImageUrl = heroImageUrls[1] || defaultHeroImageUrls[0];
-  const serviceImageUrls = services.map((_, index) => heroImageUrls[index % heroImageUrls.length] || defaultHeroImageUrls[index % defaultHeroImageUrls.length]);
-  const heroSlides = heroImageUrls.map((image, index) => ({
-    image,
-    ...heroContentPresets[index % heroContentPresets.length],
-  }));
+  const serviceImageUrls = services.map((_, index) => serviceImageOverrides[index] || heroImageUrls[index % heroImageUrls.length] || defaultHeroImageUrls[index % defaultHeroImageUrls.length]);
   const categoryPanels = dbCategories.map((category, index) => {
     const categoryProduct = products.find((product) => product.category === category.id && product.images?.[0]);
     return {
@@ -187,102 +249,107 @@ export default function HomePage() {
   }, [categoryPanels.length, isCategoryScrollerPaused]);
 
   useEffect(() => {
-    if (!heroApi) {
+    if (heroSlides.length < 2) {
       return;
     }
 
     const interval = window.setInterval(() => {
-      heroApi.scrollNext();
-    }, 6000);
+      setActiveHeroSlide((current) => (current + 1) % heroSlides.length);
+    }, 8500);
 
     return () => window.clearInterval(interval);
-  }, [heroApi]);
+  }, []);
 
   return (
     <main>
       <SEOHead
-        title="Premium Streetwear from Accra, Ghana"
-        description="Shop heavyweight 450-500 GSM tees, hoodies, and custom prints from Accra, Ghana. Culture-first streetwear designed for everyday wear. Free delivery in Accra on orders above GHC 1000."
+        title="Premium Apparel from Accra, Ghana"
+        description="Shop heavyweight 450-500 GSM tees, hoodies, and custom prints from Accra, Ghana. Culture-first apparel designed for everyday wear. Free delivery in Accra on orders above GHC 1000."
         canonical="/"
         jsonLd={[
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Tees & Hoodies Hub",
-            "url": "https://teesandhoodies.com",
-            "logo": "https://teesandhoodies.com/favicon.svg",
-            "description": "Premium heavyweight streetwear from Accra, Ghana",
-            "contactPoint": { "@type": "ContactPoint", "email": "hello@teesandhoodies.com", "contactType": "customer service" },
-            "sameAs": ["https://instagram.com/teesandhoodies"],
-            "address": { "@type": "PostalAddress", "addressLocality": "Accra", "addressCountry": "GH" }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Tees & Hoodies Hub",
-            "url": "https://teesandhoodies.com",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://teesandhoodies.com/shop?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          }
+          createOrganizationSchema(),
+          createWebsiteSchema(),
+          createLocalBusinessSchema(),
+          createFaqSchema(answerEngineFaqs),
         ]}
       />
       {/* Hero */}
-      <section className="relative overflow-hidden min-h-[100svh] bg-foreground">
-        <Carousel setApi={setHeroApi} opts={{ loop: true }} className="h-full">
-          <CarouselContent className="ml-0 h-full">
+      <section ref={heroRef} className="relative overflow-hidden min-h-[100svh] bg-foreground">
+        {heroSlides.map((slide, index) => (
+          <motion.video
+            key={slide.videoUrl}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={prefersReducedMotion ? undefined : { y: heroVideoY }}
+            initial={false}
+            animate={{
+              opacity: activeHeroSlide === index ? 1 : 0,
+              scale: activeHeroSlide === index ? 1.05 : 1.09,
+            }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload={index === 0 ? "auto" : "metadata"}
+            poster={defaultHeroImageUrls[index] || defaultHeroImageUrls[0]}
+            aria-hidden={activeHeroSlide !== index}
+          >
+            <source src={slide.videoUrl} type="video/mp4" />
+          </motion.video>
+        ))}
+        <div
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(45,64,51,0.88)_0%,rgba(45,64,51,0.62)_42%,rgba(138,154,91,0.42)_100%)]"
+        />
+        <div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_68%_45%,rgba(166,139,92,0.18),transparent_32%),linear-gradient(180deg,rgba(45,64,51,0.12)_0%,rgba(45,64,51,0.08)_36%,rgba(45,64,51,0.56)_100%)]"
+        />
+        <div className="absolute inset-x-0 top-[72px] h-px bg-white/10" />
+
+        <motion.div
+          className="relative z-10 container min-h-[100svh] pb-8 pt-24 text-white md:pt-28"
+          style={prefersReducedMotion ? undefined : { y: heroContentY, opacity: heroContentOpacity }}
+        >
+          <div className="flex min-h-[calc(100svh-8rem)] flex-col justify-center">
+            <motion.div
+              key={activeHero.label}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-[980px]"
+            >
+              <TypewriterHeroTitle text={activeHero.title} reducedMotion={Boolean(prefersReducedMotion)} />
+              <p className="mt-5 max-w-[620px] text-lg font-medium leading-snug text-white/92 md:text-2xl">
+                {activeHero.description}
+              </p>
+            </motion.div>
+
+            <motion.div {...fadeInUp} className="mt-8">
+              <Link
+                to="/shop"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-secondary px-7 text-sm font-bold uppercase tracking-[0.14em] text-secondary-foreground shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-secondary/90"
+              >
+                Shop Now <ArrowRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        <div className="absolute inset-x-0 bottom-8 z-20 md:bottom-10">
+          <div className="container flex items-center gap-3">
             {heroSlides.map((slide, index) => (
-              <CarouselItem key={`${slide.title}-${index}-${slide.image}`} className="pl-0">
-                <div className="relative min-h-[100svh]">
-                  <motion.img
-                    src={slide.image}
-                    alt={`${slide.title} ${slide.accent}`}
-                    className="absolute inset-0 h-full w-full scale-105 object-cover"
-                  />
-                  <div
-                    className="absolute inset-0 bg-[linear-gradient(90deg,rgba(45,64,51,0.88)_0%,rgba(45,64,51,0.62)_42%,rgba(138,154,91,0.42)_100%)]"
-                  />
-                  <div
-                    className="absolute inset-0 bg-[radial-gradient(circle_at_68%_45%,rgba(166,139,92,0.18),transparent_32%),linear-gradient(180deg,rgba(45,64,51,0.12)_0%,rgba(45,64,51,0.08)_36%,rgba(45,64,51,0.56)_100%)]"
-                  />
-                  <div className="absolute inset-x-0 top-[72px] h-px bg-white/10" />
-
-                  <div className="relative z-10 container min-h-[100svh] pb-8 pt-24 text-white md:pt-28">
-                    <div className="flex min-h-[calc(100svh-8rem)] flex-col justify-center">
-                      <motion.div {...fadeInUp} className="max-w-[980px]">
-                        <h1 className="font-sans text-[2.75rem] font-normal leading-[0.98] tracking-normal sm:text-[3.9rem] md:text-[clamp(4rem,4.8vw,5.35rem)]">
-                          Elevate your fit with soft heavyweight essentials.
-                        </h1>
-                        <p className="mt-5 max-w-[620px] text-lg font-medium leading-snug text-white/92 md:text-2xl">
-                          Premium tees, hoodies, and custom prints made to keep your everyday rotation clean.
-                        </p>
-                      </motion.div>
-
-                      <motion.div
-                        {...fadeInUp}
-                        className="mt-8 grid max-w-[484px] grid-cols-2 gap-2 md:ml-auto md:mt-10 md:gap-4"
-                      >
-                        {heroQuickCategories.map((category) => (
-                          <Link
-                            key={category.label}
-                            to={category.to}
-                            className={`inline-flex h-10 items-center justify-center rounded-[14px] border border-white/20 bg-white/15 px-4 text-center text-[11px] font-extrabold uppercase leading-tight text-white shadow-lg shadow-black/10 backdrop-blur-sm transition-colors hover:bg-white/25 md:h-12 md:px-5 md:text-sm ${
-                              category.wide ? "md:min-w-[238px]" : ""
-                            }`}
-                          >
-                            {category.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
+              <button
+                key={slide.label}
+                type="button"
+                onClick={() => setActiveHeroSlide(index)}
+                className={`h-2.5 rounded-full transition-all ${
+                  activeHeroSlide === index ? "w-12 bg-background" : "w-2.5 bg-background/45 hover:bg-background/70"
+                }`}
+                aria-label={`Show ${slide.label} hero video`}
+                aria-current={activeHeroSlide === index}
+              />
             ))}
-          </CarouselContent>
-        </Carousel>
+          </div>
+        </div>
       </section>
 
       {/* Featured Products */}
@@ -320,36 +387,37 @@ export default function HomePage() {
 
       {/* About strip */}
       <section id="story" className="overflow-hidden bg-secondary text-secondary-foreground">
-        <div className="container max-w-6xl py-20 md:py-0">
-          <div className="grid gap-10 md:min-h-[560px] md:grid-cols-[0.9fr_1.1fr] md:items-stretch">
-            <motion.div {...fadeInUp} className="flex flex-col justify-center text-center md:py-20 md:text-left">
-              <p className="technical-label mb-3 text-secondary-foreground/70">Our Story</p>
-              <h2 className="font-serif text-3xl md:text-5xl font-medium italic mb-6 text-lift-hover">Crafted in West Africa</h2>
-              <p className="text-secondary-foreground/82 leading-relaxed max-w-xl mx-auto md:mx-0">
-                Every piece is designed in Accra, for the world. We source 450-500GSM heavyweight cotton because we believe streetwear should feel as good as it looks.
-              </p>
-              <Link
-                to="/about"
-                className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-secondary-foreground border-b border-secondary-foreground/45 pb-1 hover:border-secondary-foreground transition-colors link-underline-fx"
-              >
-                Learn More <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 64 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="relative min-h-[320px] overflow-hidden md:min-h-full"
+        <div className="grid md:min-h-[560px] md:grid-cols-2 md:items-stretch">
+          <motion.div
+            {...fadeInUp}
+            className="flex flex-col justify-center px-6 py-20 text-center md:ml-auto md:w-full md:max-w-[640px] md:px-12 md:py-20 md:pr-16 md:text-left"
+          >
+            <p className="technical-label mb-3 text-secondary-foreground/70">Our Story</p>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium italic mb-6 text-lift-hover">Crafted in West Africa</h2>
+            <p className="text-secondary-foreground/82 leading-relaxed max-w-xl mx-auto md:mx-0">
+              Every piece is designed in Accra, for the world. We source 450-500GSM heavyweight cotton because we believe apparel should feel as good as it looks.
+            </p>
+            <Link
+              to="/about"
+              className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-secondary-foreground border-b border-secondary-foreground/45 pb-1 hover:border-secondary-foreground transition-colors link-underline-fx"
             >
-              <img
-                src={storyImageUrl}
-                alt="Tees and Hoodies streetwear from Accra"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/45 via-transparent to-transparent" />
-            </motion.div>
-          </div>
+              Learn More <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 64 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="relative min-h-[320px] overflow-hidden md:min-h-full"
+          >
+            <img
+              src={storyImageUrl}
+              alt="Tees and Hoodies apparel from Accra"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/45 via-transparent to-transparent" />
+          </motion.div>
         </div>
       </section>
 
@@ -439,7 +507,12 @@ export default function HomePage() {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {howItWorks.map((step, index) => (
-              <motion.div key={step.title} {...fadeInUp} className="border border-border p-5 bg-background/70">
+              <motion.div
+                key={step.title}
+                {...scrollRevealItem}
+                transition={{ ...scrollRevealItem.transition, delay: index * 0.08 }}
+                className="border border-border p-5 bg-background/70"
+              >
                 <p className="text-[11px] uppercase tracking-[0.18em] text-accent mb-3">Step {index + 1}</p>
                 <h3 className="font-medium mb-2">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step.detail}</p>
@@ -457,16 +530,44 @@ export default function HomePage() {
             <h2 className="font-serif text-3xl md:text-4xl font-medium italic text-lift-hover">Made With Intent, Delivered With Care</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {reasons.map((item) => {
+            {reasons.map((item, index) => {
               const Icon = item.icon;
               return (
-                <motion.div key={item.title} {...fadeInUp} className="border border-primary-foreground/20 p-6 bg-primary-foreground/5">
+                <motion.div
+                  key={item.title}
+                  {...scrollRevealItem}
+                  transition={{ ...scrollRevealItem.transition, delay: index * 0.1 }}
+                  className="border border-primary-foreground/20 p-6 bg-primary-foreground/5"
+                >
                   <Icon className="w-5 h-5 text-accent mb-4" />
                   <h3 className="font-medium mb-2">{item.title}</h3>
                   <p className="text-sm text-primary-foreground/75 leading-relaxed">{item.detail}</p>
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Answer Engine Content */}
+      <section className="py-20 md:py-28">
+        <div className="container max-w-4xl">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <p className="technical-label mb-3">Quick Answers</p>
+            <h2 className="font-serif text-3xl md:text-4xl font-medium italic text-lift-hover">Tees & Hoodies Hub At A Glance</h2>
+          </motion.div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {answerEngineFaqs.map((item, index) => (
+              <motion.article
+                key={item.question}
+                {...scrollRevealItem}
+                transition={{ ...scrollRevealItem.transition, delay: index * 0.08 }}
+                className="border border-border bg-background/70 p-6"
+              >
+                <h3 className="font-serif text-lg font-medium italic leading-snug">{item.question}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.answer}</p>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
@@ -479,8 +580,13 @@ export default function HomePage() {
             <h2 className="font-serif text-3xl md:text-4xl font-medium italic text-lift-hover">What Customers Say</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((item) => (
-              <motion.div key={item.name} {...fadeInUp} className="border border-border p-6 bg-background/70">
+            {testimonials.map((item, index) => (
+              <motion.div
+                key={item.name}
+                {...scrollRevealItem}
+                transition={{ ...scrollRevealItem.transition, delay: index * 0.1 }}
+                className="border border-border p-6 bg-background/70"
+              >
                 <div className="flex gap-1 text-accent mb-4">
                   <Star className="w-4 h-4 fill-current" />
                   <Star className="w-4 h-4 fill-current" />

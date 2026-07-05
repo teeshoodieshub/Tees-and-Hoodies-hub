@@ -13,7 +13,7 @@ export default function SizeGuidePage() {
     <main className="pt-12 pb-16">
       <SEOHead
         title="Size Guide"
-        description="Find your perfect fit with the Tees & Hoodies Hub size guide. Oversized streetwear sizing, measurement tips, and fit recommendations for all our tees and hoodies."
+        description="Find your perfect fit with the Tees & Hoodies Hub size guide. Oversized apparel sizing, measurement tips, and fit recommendations for all our tees and hoodies."
         canonical="/size-guide"
       />
       <div className="container max-w-3xl">

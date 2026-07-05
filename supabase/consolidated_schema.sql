@@ -34,6 +34,28 @@ create table if not exists public.categories (
   created_at timestamptz not null default now()
 );
 
+-- Blog Posts Table
+create table if not exists public.blog_posts (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  title text not null,
+  excerpt text not null default '',
+  content text not null default '',
+  cover_image_url text,
+  author_name text not null default 'Tees & Hoodies Hub',
+  is_published boolean not null default false,
+  published_at timestamptz,
+  seo_title text,
+  seo_description text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint blog_posts_slug_format check (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$')
+);
+
+create index if not exists blog_posts_published_at_idx
+  on public.blog_posts (published_at desc)
+  where is_published = true;
+
 -- Hero Images Table
 create table if not exists public.hero_images (
   id uuid primary key default gen_random_uuid(),
@@ -148,6 +170,7 @@ grant execute on function public.is_admin() to service_role;
 
 alter table public.products enable row level security;
 alter table public.categories enable row level security;
+alter table public.blog_posts enable row level security;
 alter table public.hero_images enable row level security;
 alter table public.carts enable row level security;
 alter table public.cart_items enable row level security;
@@ -159,6 +182,20 @@ alter table public.admin_users enable row level security;
 -- Simple permissive policies
 create policy "allow_anon_read" on public.products for select using (true);
 create policy "allow_anon_read_cat" on public.categories for select using (true);
+create policy "blog_posts_public_read_published"
+  on public.blog_posts
+  for select
+  to anon, authenticated
+  using (
+    is_published = true
+    and (published_at is null or published_at <= now())
+  );
+create policy "blog_posts_admin_all"
+  on public.blog_posts
+  for all
+  to authenticated
+  using (public.is_admin())
+  with check (public.is_admin());
 create policy "allow_anon_read_hero_images" on public.hero_images for select using (true);
 create policy "full_access_products" on public.products for all using (true);
 create policy "full_access_categories" on public.categories for all using (true);

@@ -15,6 +15,8 @@ import Shipping from "./pages/Shipping.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import Terms from "./pages/Terms.tsx";
 import FAQ from "./pages/FAQ.tsx";
+import Blog from "./pages/Blog.tsx";
+import BlogDetail from "./pages/BlogDetail.tsx";
 import SizeGuide from "./pages/SizeGuide.tsx";
 import CustomMockupStudio from "./pages/CustomMockupStudio.tsx";
 import Checkout from "./pages/Checkout.tsx";
@@ -25,6 +27,7 @@ import AdminSignup from "./pages/admin/AdminSignup.tsx";
 import AdminAnalytics from "./pages/admin/AdminAnalytics.tsx";
 import AdminCollections from "./pages/admin/AdminCollections.tsx";
 import AdminProducts from "./pages/admin/AdminProducts.tsx";
+import AdminBlog from "./pages/admin/AdminBlog.tsx";
 import AdminOrders from "./pages/admin/AdminOrders.tsx";
 import AdminCarts from "./pages/admin/AdminCarts.tsx";
 import AdminRoute from "./components/admin/AdminRoute.tsx";
@@ -51,6 +54,8 @@ const App = () => (
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/size-guide" element={<SizeGuide />} />
               <Route path="/custom-prints" element={<CustomMockupStudio />} />
               <Route path="/custom-studio" element={<CustomMockupStudio />} />
@@ -67,6 +72,7 @@ const App = () => (
                 <Route path="analytics" element={<AdminAnalytics />} />
                 <Route path="collections" element={<AdminCollections />} />
                 <Route path="products" element={<AdminProducts />} />
+                <Route path="blog" element={<AdminBlog />} />
                 <Route path="orders" element={<AdminOrders />} />
                 <Route path="carts" element={<AdminCarts />} />
               </Route>

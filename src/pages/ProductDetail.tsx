@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import { useProducts } from "@/hooks/use-products";
 import SEOHead from "@/components/SEOHead";
 import { getColorLabel } from "@/lib/colors";
+import { createBreadcrumbSchema, createProductSchema } from "@/lib/seo";
 
 function AccordionItem({ title, content }: { title: string; content: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -298,25 +299,19 @@ export default function ProductPage() {
       <main className="pt-12 pb-16">
       <SEOHead
         title={product.name}
-        description={product.description || `Shop ${product.name} from Tees & Hoodies Hub. Premium heavyweight streetwear crafted in Accra, Ghana. ${product.specs || ""}`}
+        description={product.description || `Shop ${product.name} from Tees & Hoodies Hub. Premium heavyweight apparel crafted in Accra, Ghana. ${product.specs || ""}`}
         canonical={`/product/${product.id}`}
         ogImage={product.featuredImage || galleryImages[0]}
+        ogImageAlt={`${product.name} from Tees & Hoodies Hub`}
         ogType="product"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": product.name,
-          "image": galleryImages,
-          "description": product.description || "",
-          "brand": { "@type": "Brand", "name": "Tees & Hoodies Hub" },
-          "offers": {
-            "@type": "Offer",
-            "price": product.price,
-            "priceCurrency": "GHS",
-            "availability": "https://schema.org/InStock",
-            "url": `https://teesandhoodies.com/product/${product.id}`
-          }
-        }}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Shop", path: "/shop" },
+            { name: product.name, path: `/product/${product.id}` },
+          ]),
+          createProductSchema(product, galleryImages),
+        ]}
       />
       <div className="container">
         <Link to="/shop" className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors mb-10">

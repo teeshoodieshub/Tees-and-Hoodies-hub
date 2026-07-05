@@ -7,7 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
-  { to: "/custom-studio", label: "Studio Page" },
+  { to: "/custom-studio", label: "Customization" },
+  { to: "/contact", label: "Contact" },
+  { to: "/blog", label: "Blog" },
 ];
 
 export default function Header() {
@@ -27,18 +29,14 @@ export default function Header() {
       <div className="container relative flex h-[72px] items-center justify-between">
         <Link
           to="/"
-          className={`font-sans text-xl md:text-2xl font-semibold tracking-tight text-lift-hover ${
-            isHome ? "text-white" : "text-foreground"
-          }`}
+          className="inline-flex items-center transition-opacity hover:opacity-85"
+          aria-label="Tees & Hoodies home"
         >
-          <span
-            className={`mr-1 rounded-[6px] px-2 py-1 ${
-              isHome ? "bg-background/95 text-foreground" : "bg-foreground text-background"
-            }`}
-          >
-            TEES
-          </span>
-          <span className={isHome ? "text-white" : "text-foreground"}>&amp; HOODIES</span>
+          <img
+            src={isHome ? "/brand-logo-white.png" : "/brand-logo.png"}
+            alt="Tees & Hoodies"
+            className="h-12 w-12 object-contain md:h-14 md:w-14"
+          />
         </Link>
 
         {/* Desktop nav */}
@@ -49,9 +47,7 @@ export default function Header() {
               to={link.to}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 location.pathname === link.to
-                  ? isHome
-                    ? "bg-background/95 text-foreground"
-                    : "bg-foreground text-background"
+                  ? "bg-secondary text-secondary-foreground"
                   : isHome
                     ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
                     : "border border-border bg-background text-muted-foreground hover:text-foreground"

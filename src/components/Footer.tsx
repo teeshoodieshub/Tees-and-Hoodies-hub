@@ -6,9 +6,11 @@ export default function Footer() {
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-1">
-            <h3 className="font-serif text-xl font-semibold tracking-wide mb-4 text-lift-hover">TEES & HOODIES</h3>
+            <Link to="/" className="mb-4 inline-flex transition-opacity hover:opacity-85" aria-label="Tees & Hoodies home">
+              <img src="/brand-logo-white.png" alt="Tees & Hoodies" className="h-16 w-16 object-contain" />
+            </Link>
             <p className="text-primary-foreground/60 text-sm max-w-xs leading-relaxed">
-              Streetwear born in Accra. Where modern elegance meets heritage craft.
+              Apparel born in Accra. Where modern elegance meets heritage craft.
             </p>
           </div>
           <div>
@@ -30,6 +32,7 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               {[
                 { to: "/about", label: "About Us" },
+                { to: "/blog", label: "Blog" },
                 { to: "/contact", label: "Contact" },
               ].map((link) => (
                 <Link key={link.to} to={link.to} className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors link-underline-fx">

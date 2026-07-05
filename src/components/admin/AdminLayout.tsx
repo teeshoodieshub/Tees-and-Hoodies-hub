@@ -6,6 +6,7 @@ const navItems = [
   { to: "/admin/analytics", label: "Analytics" },
   { to: "/admin/collections", label: "Collections" },
   { to: "/admin/products", label: "Products" },
+  { to: "/admin/blog", label: "Blog" },
   { to: "/admin/orders", label: "Orders" },
   { to: "/admin/carts", label: "Carts" },
 ];
