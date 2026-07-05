@@ -1,4 +1,11 @@
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import { BRAND_EMAIL, BRAND_INSTAGRAM, BRAND_SOCIAL_HANDLE, BRAND_TIKTOK } from "@/lib/seo";
+
+const socialLinks = [
+  { href: BRAND_INSTAGRAM, label: "Instagram", handle: BRAND_SOCIAL_HANDLE },
+  { href: BRAND_TIKTOK, label: "TikTok", handle: BRAND_SOCIAL_HANDLE },
+];
 
 export default function Footer() {
   return (
@@ -45,9 +52,28 @@ export default function Footer() {
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold mb-4">Get in Touch</p>
             <div className="flex flex-col gap-2">
               <p className="text-sm text-primary-foreground/60">West Africa</p>
-              <a href="mailto:hello@teesandhoodies.com" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors link-underline-fx">
-                hello@teesandhoodies.com
+              <a href={`mailto:${BRAND_EMAIL}`} className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors link-underline-fx">
+                {BRAND_EMAIL}
               </a>
+            </div>
+            <div className="mt-6">
+              <p className="mb-3 text-[11px] uppercase tracking-[0.2em] text-primary-foreground/40">Socials</p>
+              <div className="flex flex-col gap-2">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex w-fit items-center gap-2 text-sm text-primary-foreground/60 transition-colors hover:text-primary-foreground"
+                    aria-label={`Open ${social.label} profile ${social.handle}`}
+                  >
+                    <span>{social.label}</span>
+                    <span className="text-primary-foreground/35">{social.handle}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

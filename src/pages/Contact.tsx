@@ -4,7 +4,15 @@ import { ArrowRight, Clock, Instagram, Loader2, Mail, MapPin, Send } from "lucid
 import SEOHead from "@/components/SEOHead";
 import { toast } from "@/components/ui/sonner";
 import { submitContactMessage } from "@/lib/supabaseApi";
-import { BRAND_EMAIL, BRAND_INSTAGRAM, SITE_NAME, SITE_URL, createBreadcrumbSchema } from "@/lib/seo";
+import {
+  BRAND_EMAIL,
+  BRAND_INSTAGRAM,
+  BRAND_SOCIAL_HANDLE,
+  BRAND_TIKTOK,
+  SITE_NAME,
+  SITE_URL,
+  createBreadcrumbSchema,
+} from "@/lib/seo";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 12 },
@@ -109,7 +117,21 @@ export default function ContactPage() {
               >
                 <Instagram className="mb-5 h-5 w-5 text-accent" />
                 <p className="text-sm font-semibold">Instagram</p>
-                <p className="mt-1 text-sm text-muted-foreground">@teesandhoodies</p>
+                <p className="mt-1 text-sm text-muted-foreground">{BRAND_SOCIAL_HANDLE}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
+                  Open profile <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+
+              <a
+                href={BRAND_TIKTOK}
+                target="_blank"
+                rel="noreferrer"
+                className="group border border-border bg-background p-5 transition-colors hover:border-foreground"
+              >
+                <span className="mb-5 flex h-5 w-5 items-center justify-center text-xs font-bold text-accent">TT</span>
+                <p className="text-sm font-semibold">TikTok</p>
+                <p className="mt-1 text-sm text-muted-foreground">{BRAND_SOCIAL_HANDLE}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
                   Open profile <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>

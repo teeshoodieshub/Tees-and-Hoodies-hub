@@ -4,7 +4,10 @@ import type { DbBlogPost } from "@/lib/supabaseApi";
 export const SITE_NAME = "Tees & Hoodies Hub";
 export const SITE_URL = "https://teesandhoodies.com";
 export const BRAND_EMAIL = "hello@teesandhoodies.com";
-export const BRAND_INSTAGRAM = "https://instagram.com/teesandhoodies";
+export const BRAND_INSTAGRAM = "https://www.instagram.com/tees_hoodies_hub";
+export const BRAND_TIKTOK = "https://www.tiktok.com/@tees_hoodies_hub";
+export const BRAND_SOCIAL_HANDLE = "@tees_hoodies_hub";
+export const BRAND_SOCIAL_LINKS = [BRAND_INSTAGRAM, BRAND_TIKTOK];
 export const DEFAULT_DESCRIPTION =
   "Premium heavyweight apparel from Accra, Ghana. Shop 450-500 GSM tees, hoodies, and custom prints. Culture-first design made for everyday wear.";
 export const BRAND_LOGO = `${SITE_URL}/brand-logo.png`;
@@ -35,7 +38,7 @@ export function createOrganizationSchema() {
     description: DEFAULT_DESCRIPTION,
     email: BRAND_EMAIL,
     foundingDate: "2023",
-    sameAs: [BRAND_INSTAGRAM],
+    sameAs: BRAND_SOCIAL_LINKS,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Accra",
@@ -79,7 +82,7 @@ export function createLocalBusinessSchema() {
     image: DEFAULT_IMAGE,
     email: BRAND_EMAIL,
     priceRange: "GHS",
-    sameAs: [BRAND_INSTAGRAM],
+    sameAs: BRAND_SOCIAL_LINKS,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Accra",
