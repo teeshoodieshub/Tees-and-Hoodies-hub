@@ -26,14 +26,14 @@ function renderContent(content: string) {
 
   return blocks.map((block, index) => {
     if (block.startsWith("### ")) {
-      return <h3 key={index} className="font-serif text-2xl font-medium italic text-foreground">{block.slice(4)}</h3>;
+      return <h3 key={index} className="mt-12 font-serif text-2xl font-medium italic leading-snug text-foreground first:mt-0">{block.slice(4)}</h3>;
     }
     if (block.startsWith("## ")) {
-      return <h2 key={index} className="font-serif text-3xl font-medium italic text-foreground">{block.slice(3)}</h2>;
+      return <h2 key={index} className="mt-14 font-serif text-3xl font-medium italic leading-tight text-foreground first:mt-0 md:text-4xl">{block.slice(3)}</h2>;
     }
     if (block.startsWith("- ")) {
       return (
-        <ul key={index} className="list-disc space-y-2 pl-5">
+        <ul key={index} className="my-8 list-disc space-y-3 pl-6 text-base leading-8 text-muted-foreground">
           {block.split("\n").map((line) => (
             <li key={line}>{line.replace(/^- /, "")}</li>
           ))}
@@ -42,14 +42,14 @@ function renderContent(content: string) {
     }
     if (/^\d+\.\s/.test(block)) {
       return (
-        <ol key={index} className="list-decimal space-y-2 pl-5">
+        <ol key={index} className="my-8 list-decimal space-y-3 pl-6 text-base leading-8 text-muted-foreground">
           {block.split("\n").map((line) => (
             <li key={line}>{line.replace(/^\d+\.\s/, "")}</li>
           ))}
         </ol>
       );
     }
-    return <p key={index}>{block}</p>;
+    return <p key={index} className="my-7 text-base leading-8 text-muted-foreground md:text-[17px] md:leading-9">{block}</p>;
   });
 }
 
@@ -126,7 +126,7 @@ export default function BlogDetailPage() {
         <div className="container mt-14 max-w-3xl">
           <motion.div
             {...fadeInUp}
-            className="prose prose-neutral max-w-none prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-headings:mt-10 prose-headings:mb-4"
+            className="max-w-none"
           >
             {renderContent(post.content)}
           </motion.div>

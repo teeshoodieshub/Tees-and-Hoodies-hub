@@ -85,13 +85,13 @@ export default function BlogPage() {
                       </div>
                     )}
                   </div>
-                  <div className="flex min-h-[210px] flex-col p-6">
+                  <div className="flex min-h-[240px] flex-col p-7">
                     <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                       {formatPostDate(post.published_at)} / {post.author_name}
                     </p>
-                    <h2 className="mt-4 font-serif text-2xl font-medium italic leading-tight">{post.title}</h2>
-                    <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
-                    <span className="mt-auto inline-flex items-center gap-2 pt-6 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                    <h2 className="mt-5 font-serif text-2xl font-medium italic leading-snug">{post.title}</h2>
+                    <p className="mt-5 line-clamp-4 text-sm leading-7 text-muted-foreground">{post.excerpt}</p>
+                    <span className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                       Read article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>

@@ -73,6 +73,10 @@ function formatDate(value: string | null) {
   }).format(new Date(value));
 }
 
+function isBuiltInPost(post: DbBlogPost) {
+  return post.id.startsWith("static-");
+}
+
 export default function AdminBlog() {
   const queryClient = useQueryClient();
   const [form, setForm] = useState<BlogForm>(emptyForm);
@@ -167,8 +171,11 @@ export default function AdminBlog() {
 
   const handleEdit = (post: DbBlogPost) => {
     setForm(mapPostToForm(post));
-    setEditingId(post.id);
+    setEditingId(isBuiltInPost(post) ? null : post.id);
     setIsAdding(true);
+    if (isBuiltInPost(post)) {
+      toast.info("Built-in SEO post loaded as a new editable dashboard post");
+    }
   };
 
   const handleCoverUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -351,7 +358,7 @@ export default function AdminBlog() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Posts</h3>
-          <span className="text-xs text-muted-foreground">{posts.length} total</span>
+          <span className="text-xs text-muted-foreground">{posts.length} total, including built-in SEO posts</span>
         </div>
         {isLoading ? (
           <div className="py-12 text-center">
@@ -360,7 +367,10 @@ export default function AdminBlog() {
         ) : posts.length === 0 ? (
           <div className="border border-dashed border-border p-10 text-center text-sm text-muted-foreground">No blog posts yet.</div>
         ) : (
-          posts.map((post) => (
+          posts.map((post) => {
+            const isBuiltIn = isBuiltInPost(post);
+
+            return (
             <article key={post.id} className="flex gap-4 border border-border p-4">
               <div className="h-20 w-24 shrink-0 overflow-hidden bg-secondary">
                 {post.cover_image_url && <img src={post.cover_image_url} alt={post.title} className="h-full w-full object-cover" />}
@@ -370,6 +380,11 @@ export default function AdminBlog() {
                   <span className={`rounded-full px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] ${post.is_published ? "bg-green-100 text-green-700" : "bg-secondary text-muted-foreground"}`}>
                     {post.is_published ? "Published" : "Draft"}
                   </span>
+                  {isBuiltIn && (
+                    <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] text-accent">
+                      Built-in SEO
+                    </span>
+                  )}
                   <span className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">{formatDate(post.published_at)}</span>
                 </div>
                 <h4 className="truncate font-serif text-lg font-medium italic">{post.title}</h4>
@@ -381,25 +396,35 @@ export default function AdminBlog() {
                   type="button"
                   onClick={() => handleEdit(post)}
                   className="inline-flex h-9 w-9 items-center justify-center border border-border transition-colors hover:border-foreground"
-                  title="Edit"
+                  title={isBuiltIn ? "Copy to editable post" : "Edit"}
                 >
                   <Pencil className="h-4 w-4" />
                 </button>
                 <button
                   type="button"
                   onClick={() => {
+                    if (isBuiltIn) {
+                      toast.info("Built-in SEO posts cannot be deleted from the dashboard");
+                      return;
+                    }
                     if (window.confirm(`Delete "${post.title}"?`)) {
                       deleteMutation.mutate(post.id);
                     }
                   }}
-                  className="inline-flex h-9 w-9 items-center justify-center border border-border text-red-500 transition-colors hover:border-red-500"
-                  title="Delete"
+                  className={`inline-flex h-9 w-9 items-center justify-center border border-border transition-colors ${
+                    isBuiltIn
+                      ? "cursor-not-allowed text-muted-foreground opacity-45"
+                      : "text-red-500 hover:border-red-500"
+                  }`}
+                  title={isBuiltIn ? "Built-in posts cannot be deleted" : "Delete"}
+                  disabled={deleteMutation.isPending}
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
             </article>
-          ))
+            );
+          })
         )}
       </div>
     </section>

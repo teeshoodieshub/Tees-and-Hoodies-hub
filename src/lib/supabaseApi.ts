@@ -401,8 +401,7 @@ export async function listBlogPostsAdmin(): Promise<DbBlogPost[]> {
     .from("blog_posts")
     .select("*")
     .order("created_at", { ascending: false });
-  if (error || !data) return [];
-  return data as DbBlogPost[];
+  return mergePublishedBlogPosts(error || !data ? [] : (data as DbBlogPost[]));
 }
 
 export async function createBlogPost(post: BlogPostInput): Promise<void> {

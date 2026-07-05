@@ -115,14 +115,14 @@ const answerEngineFaqs = [
 const heroSlides = [
   {
     videoUrl: "/hero/magnific_animate-start-image_dIWwgSgXSL.mp4",
-    title: "Elevate your fit with soft heavyweight essentials.",
-    description: "Premium tees, hoodies, and custom prints made to keep your everyday rotation clean.",
+    title: "Buy plain Hoodies, Sweatshirts and Tees",
+    description: "",
     label: "Essentials",
   },
   {
     videoUrl: "/hero/magnific_animate-start-image_62wEJhjiJO.mp4",
-    title: "Create merch that moves like your brand.",
-    description: "Use our custom studio to preview designs, approve placement, and produce clean drops with confidence.",
+    title: "Customize all your merch with us",
+    description: "",
     label: "Studio",
   },
 ];
@@ -153,7 +153,7 @@ function TypewriterHeroTitle({
       if (index >= text.length) {
         window.clearInterval(interval);
       }
-    }, 30);
+    }, 80);
 
     return () => window.clearInterval(interval);
   }, [text, reducedMotion]);
@@ -168,8 +168,11 @@ function TypewriterHeroTitle({
         <span className="invisible">{text}</span>
         <span className="absolute inset-0">
           {typedText}
-          {!reducedMotion && typedText.length < text.length && (
-            <span className="ml-1 inline-block h-[0.82em] w-px translate-y-[0.08em] animate-pulse bg-current" />
+          {!reducedMotion && (
+            <span
+              className="ml-2 inline-block h-[0.82em] w-[0.08em] translate-y-[0.08em] animate-pulse rounded-full bg-current"
+              aria-hidden="true"
+            />
           )}
         </span>
       </span>
@@ -318,9 +321,11 @@ export default function HomePage() {
               className="max-w-[980px]"
             >
               <TypewriterHeroTitle text={activeHero.title} reducedMotion={Boolean(prefersReducedMotion)} />
-              <p className="mt-5 max-w-[620px] text-lg font-medium leading-snug text-white/92 md:text-2xl">
-                {activeHero.description}
-              </p>
+              {activeHero.description && (
+                <p className="mt-5 max-w-[620px] text-lg font-medium leading-snug text-white/92 md:text-2xl">
+                  {activeHero.description}
+                </p>
+              )}
             </motion.div>
 
             <motion.div {...fadeInUp} className="mt-8">
