@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 
 const SITE_URL = "https://teesandhoodies.com";
 const SITE_NAME = "Tees & Hoodies Hub";
+const BRAND_EMAIL = "tees.hoodies.hub@gmail.com";
 const SITE_DESCRIPTION =
   "Premium heavyweight apparel from Accra, Ghana. Shop 450-500 GSM tees, hoodies, sleeveless tops, polos, and custom printed apparel.";
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -295,7 +296,7 @@ ${blogLinks || "- Published blog posts are included here when available during b
 - Primary location: Accra, Ghana.
 - Core products: heavyweight tees, hoodies, sleeveless tops, polos, and custom printed apparel.
 - Fabric positioning: premium heavyweight garments, including 450-500 GSM cotton options.
-- Customer support: hello@teesandhoodies.com.
+- Customer support: ${BRAND_EMAIL}.
 - Canonical website: ${SITE_URL}.
 
 ## Full context
@@ -336,7 +337,7 @@ ${SITE_DESCRIPTION}
 - Focus: premium heavyweight apparel, blank merch, and custom printed apparel
 - Apparel categories: tees, hoodies, sleeveless tops, polo shirts, and custom print orders
 - Fabric positioning: 450-500 GSM heavyweight cotton options
-- Support email: hello@teesandhoodies.com
+- Support email: ${BRAND_EMAIL}
 - Instagram: https://instagram.com/teesandhoodies
 
 ## Frequently cited answers

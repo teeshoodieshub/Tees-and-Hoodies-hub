@@ -13,7 +13,7 @@ const faqs = [
   {
     question: "How do I track my order?",
     answer:
-      "You will receive a shipping confirmation email with tracking details once your order ships. If you do not receive it within 3 business days, email hello@teesandhoodies.com.",
+      "You will receive a shipping confirmation email with tracking details once your order ships. If you do not receive it within 3 business days, email tees.hoodies.hub@gmail.com.",
   },
   {
     question: "Do you offer exchanges?",

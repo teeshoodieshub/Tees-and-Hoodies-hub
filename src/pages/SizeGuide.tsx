@@ -43,7 +43,7 @@ export default function SizeGuidePage() {
 
           <section>
             <h2 className="font-serif text-xl text-foreground mb-3">Need sizing help?</h2>
-            <p>Email hello@teesandhoodies.com with your height, weight, and preferred fit, and we will recommend a size.</p>
+            <p>Email tees.hoodies.hub@gmail.com with your height, weight, and preferred fit, and we will recommend a size.</p>
           </section>
         </motion.div>
       </div>

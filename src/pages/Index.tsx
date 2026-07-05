@@ -120,7 +120,7 @@ const heroSlides = [
     label: "Essentials",
   },
   {
-    videoUrl: "/hero/magnific_animate-start-image_62wEJhjiJO.mp4",
+    videoUrl: "/hero/magnific_animate-start-image-and-m_SOkuBbCUb8.mp4",
     title: "Customize all your merch with us",
     description: "",
     label: "Studio",
@@ -398,7 +398,7 @@ export default function HomePage() {
             className="flex flex-col justify-center px-6 py-20 text-center md:ml-auto md:w-full md:max-w-[640px] md:px-12 md:py-20 md:pr-16 md:text-left"
           >
             <p className="technical-label mb-3 text-secondary-foreground/70">Our Story</p>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium italic mb-6 text-lift-hover">Crafted in West Africa</h2>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium italic mb-6 text-lift-hover">Crafted in Ghana</h2>
             <p className="text-secondary-foreground/82 leading-relaxed max-w-xl mx-auto md:mx-0">
               Every piece is designed in Accra, for the world. We source 450-500GSM heavyweight cotton because we believe apparel should feel as good as it looks.
             </p>

@@ -51,7 +51,7 @@ export default function Footer() {
           <div>
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold mb-4">Get in Touch</p>
             <div className="flex flex-col gap-2">
-              <p className="text-sm text-primary-foreground/60">West Africa</p>
+              <p className="text-sm text-primary-foreground/60">Ghana</p>
               <a href={`mailto:${BRAND_EMAIL}`} className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors link-underline-fx">
                 {BRAND_EMAIL}
               </a>

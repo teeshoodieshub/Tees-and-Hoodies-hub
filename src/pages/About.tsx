@@ -13,7 +13,7 @@ export default function AboutPage() {
     <main className="pt-12 pb-16">
       <SEOHead
         title="About Us"
-        description="Tees & Hoodies Hub was born in the creative heart of Accra — Osu. We craft 450-500 GSM heavyweight apparel inspired by West African culture. Founded in 2023, designed in Accra for the world."
+        description="Tees & Hoodies Hub was born in the creative heart of Accra — Osu. We craft 450-500 GSM heavyweight apparel inspired by Ghanaian culture. Founded in 2023, designed in Accra for the world."
         canonical="/about"
       />
       <div className="container max-w-3xl">

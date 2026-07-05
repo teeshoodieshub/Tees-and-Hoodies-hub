@@ -70,7 +70,7 @@ export default function PrivacyPage() {
             <h2 className="font-serif text-xl text-foreground mb-3">Your choices</h2>
             <p>
               You may request access, correction, or deletion of your personal information by contacting us at
-              hello@teesandhoodies.com.
+              tees.hoodies.hub@gmail.com.
             </p>
           </section>
         </motion.div>

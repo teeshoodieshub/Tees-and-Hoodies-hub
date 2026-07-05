@@ -44,7 +44,7 @@ export default function ReturnPolicyPage() {
           <section>
             <h2 className="font-serif text-xl text-foreground mb-3">How to start a return</h2>
             <ol className="list-decimal pl-5 space-y-2">
-              <li>Email hello@teesandhoodies.com with your order number.</li>
+              <li>Email tees.hoodies.hub@gmail.com with your order number.</li>
               <li>Tell us whether you want a refund or exchange.</li>
               <li>We will reply with return instructions within 2 business days.</li>
             </ol>
@@ -77,7 +77,7 @@ export default function ReturnPolicyPage() {
 
           <section>
             <h2 className="font-serif text-xl text-foreground mb-3">Need help?</h2>
-            <p>Reach us at hello@teesandhoodies.com and we will respond within 2 business days.</p>
+            <p>Reach us at tees.hoodies.hub@gmail.com and we will respond within 2 business days.</p>
           </section>
         </motion.div>
       </div>

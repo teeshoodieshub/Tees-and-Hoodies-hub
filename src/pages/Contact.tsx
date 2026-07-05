@@ -56,7 +56,7 @@ export default function ContactPage() {
     } catch (error) {
       console.error("Contact notification failed:", error);
       toast.error("Message could not be sent", {
-        description: "Please try again or email us directly at hello@teesandhoodies.com.",
+        description: "Please try again or email us directly at tees.hoodies.hub@gmail.com.",
       });
     } finally {
       setIsSubmitting(false);
@@ -140,7 +140,7 @@ export default function ContactPage() {
               <div className="border border-border bg-secondary/25 p-5">
                 <MapPin className="mb-5 h-5 w-5 text-accent" />
                 <p className="text-sm font-semibold">Location</p>
-                <p className="mt-1 text-sm text-muted-foreground">Accra, Ghana. Serving customers across West Africa.</p>
+                <p className="mt-1 text-sm text-muted-foreground">Accra, Ghana. Serving customers across Ghana.</p>
               </div>
 
               <div className="border border-border bg-secondary/25 p-5">

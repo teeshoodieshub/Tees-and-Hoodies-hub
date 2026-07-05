@@ -34,7 +34,7 @@ export default function ShippingPage() {
             <ul className="list-disc pl-5 space-y-2">
               <li>Accra: 1-3 business days after dispatch.</li>
               <li>Ghana (outside Accra): 2-5 business days after dispatch.</li>
-              <li>West Africa: 5-10 business days after dispatch.</li>
+              <li>Ghana-wide delivery: 5-10 business days after dispatch.</li>
               <li>International: 7-21 business days after dispatch.</li>
             </ul>
             <p className="mt-3">
@@ -51,7 +51,7 @@ export default function ShippingPage() {
             <h2 className="font-serif text-xl text-foreground mb-3">Order tracking</h2>
             <p>
               When your order ships, you will receive a confirmation email with tracking details. If you do not receive
-              a tracking email within 3 business days, contact us at hello@teesandhoodies.com.
+              a tracking email within 3 business days, contact us at tees.hoodies.hub@gmail.com.
             </p>
           </section>
 

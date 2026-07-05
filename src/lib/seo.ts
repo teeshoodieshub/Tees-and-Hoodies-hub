@@ -3,7 +3,7 @@ import type { DbBlogPost } from "@/lib/supabaseApi";
 
 export const SITE_NAME = "Tees & Hoodies Hub";
 export const SITE_URL = "https://teesandhoodies.com";
-export const BRAND_EMAIL = "hello@teesandhoodies.com";
+export const BRAND_EMAIL = "tees.hoodies.hub@gmail.com";
 export const BRAND_INSTAGRAM = "https://www.instagram.com/tees_hoodies_hub";
 export const BRAND_TIKTOK = "https://www.tiktok.com/@tees_hoodies_hub";
 export const BRAND_SOCIAL_HANDLE = "@tees_hoodies_hub";
@@ -91,7 +91,6 @@ export function createLocalBusinessSchema() {
     },
     areaServed: [
       { "@type": "Country", name: "Ghana" },
-      { "@type": "Place", name: "West Africa" },
     ],
   };
 }
