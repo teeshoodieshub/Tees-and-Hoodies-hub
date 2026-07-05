@@ -116,13 +116,13 @@ const heroSlides = [
   {
     videoUrl: "/hero/magnific_animate-start-image_dIWwgSgXSL.mp4",
     title: "Buy plain Hoodies, Sweatshirts and Tees",
-    description: "",
+    description: "Premium heavyweight blanks for everyday wear, brand drops, events, and team merch.",
     label: "Essentials",
   },
   {
     videoUrl: "/hero/magnific_animate-start-image-and-m_SOkuBbCUb8.mp4",
     title: "Customize all your merch with us",
-    description: "",
+    description: "Send your idea, logo, or artwork and we will help turn it into clean, production-ready apparel.",
     label: "Studio",
   },
 ];
