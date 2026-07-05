@@ -170,7 +170,7 @@ function TypewriterHeroTitle({
           {typedText}
           {!reducedMotion && (
             <span
-              className="ml-2 inline-block h-[0.82em] w-[0.08em] translate-y-[0.08em] animate-pulse rounded-full bg-current"
+              className="ml-2 inline-block h-[0.82em] w-[0.08em] translate-y-[0.08em] animate-pulse rounded-full bg-secondary"
               aria-hidden="true"
             />
           )}
